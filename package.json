@@ -24,8 +24,5 @@
   "contributors": [
     "Furkan MT (https://github.com/furcan)"
   ],
-  "license": "MIT",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  }
+  "license": "MIT"
 }
