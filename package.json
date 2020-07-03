@@ -1,0 +1,31 @@
+{
+  "name": "imagenerator",
+  "main": "src/imagenerator.js",
+  "version": "0.0.1-beta.01",
+  "description": "imagenerator",
+  "homepage": "https://github.com/furcan/imagenerator",
+  "scripts": {
+    "test": "node src/imagenerator.js"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "imagenerator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/furcan/imagenerator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/furcan/imagenerator/issues"
+  },
+  "author": "Furkan MT (https://github.com/furcan)",
+  "contributors": [
+    "Furkan MT (https://github.com/furcan)"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
+}
