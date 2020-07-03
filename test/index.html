@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Just a Test</title>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800,900&amp;display=swap&amp;subset=latin-ext" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Montserrat";
+      outline: none;
+    }
+
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    .flex {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin: 0 0 20px;
+    }
+
+    .col {
+      width: 30%;
+      padding: 30px;
+      margin: 0 0 60px;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .export {
+      border: 1px solid gray;
+    }
+
+    canvas,
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .d-none {
+      display: none;
+    }
+
+    .d-opacity {
+      opacity: 0.25;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      padding: 0 20px;
+      background: black;
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
+      height: 50px;
+    }
+
+    a {
+      display: inline-block;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 0 16px;
+      margin: 20px 0 0;
+      background: red;
+      color: white;
+      height: 30px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 30px;
+      box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
+    }
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/notiflix@2.3.3/dist/notiflix-aio-2.3.3.min.js"></script>
+</head>
+
+<body>
+
+  <div class="flex">
+
+    <div class="col d-none">
+      <h1>Source</h1>
+      <!-- <img id="grunge" class="d-none" crossorigin="anonymous" src="https://images.unsplash.com/photo-1527049979667-990f1d0d8e7f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" /> -->
+      <!-- <img id="image" crossorigin="anonymous" src="https://images.unsplash.com/photo-1482953049121-a32d321c2000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" /> -->
+      <img id="grunge" class="d-none" crossorigin="anonymous" src="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" />
+      <img id="image" crossorigin="anonymous" src="https://images.unsplash.com/photo-1421790817162-a68f1875ef89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" />
+      <!-- <img id="icon" crossorigin="anonymous" class="d-none" src="https://i.ibb.co/xXCm9rs/poem-1.png" width="200" height="200" alt="Source" /> -->
+      <img id="icon" crossorigin="anonymous" class="d-none" src="https://i.ibb.co/876DPQJ/poem.png" width="200" height="200" alt="Source" />
+      <!-- <img id="icon" crossorigin="anonymous" style="display: none;" src="https://i.ibb.co/pKtMRdZ/poem-2.png" width="200" height="200" alt="Source" /> -->
+    </div>
+
+    <div class="col d-opacity">
+      <h1>Canvas</h1>
+      <canvas id="canvas" width="1920" height="1920" style="border:2px solid #d3d3d3;">Your browser does not support the HTML canvas tag.</canvas>
+    </div>
+
+    <div class="col">
+      <h1>Export</h1>
+      <div class="export">
+        <img id="export" src="placeholder.png" alt="Export" width="1920" height="1920" />
+      </div>
+      <a id="DownLink" href="#" download="This-Is-An-Image">Download</a>
+    </div>
+
+  </div>
+
+  <div class="flex">
+    <button onclick="canvasCreate(true)">CREATE COVER IMAGE</button>
+  </div>
+
+  <script>
+    var multilineTextToCanvasContext = function mlTxtToCnvsCtx(ctx, text, lineHeight, maxLength, x, y, maxWidth) {
+      // check ctx, text and text length
+      if (typeof ctx !== 'object' && typeof text !== 'string') {
+        return false;
+      }
+      // message max length
+      maxLength = typeof maxLength === 'number' && maxLength > 0 ? maxLength : 50;
+      // text substring
+      text = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+
+      // variables
+      var words = text.split(' ');
+      var lines = [];
+      var sliceFrom = 0;
+
+      // check for long words
+      for (var i = 0; i < words.length; i++) {
+        var word = words[i];
+        var wordWidth = parseInt(ctx.measureText(word).width);
+        if (wordWidth > maxWidth) {
+          words.splice(i, 1);
+
+          var chars = word.split('');
+          for (var ci = 0; ci < chars.length; ci++) {
+            var txt = (txt || '') + chars[ci];
+            var strWidth = parseInt(ctx.measureText(txt).width);
+            if (strWidth > maxWidth) {
+              words.splice(i, 0, txt);
+              txt = txt.replace(txt, '');
+            }
+          }
+        }
+      }
+
+      // create lines from words
+      for (var i = 0; i < words.length; i++) {
+        var chunk = words.slice(sliceFrom, i).join(' ');
+        var last = i === words.length - 1;
+        var bigger = parseInt(ctx.measureText(chunk).width) > maxWidth;
+        if (bigger) {
+          lines.push(words.slice(sliceFrom, i).join(' '));
+          sliceFrom = i;
+        }
+        if (last) {
+          lines.push(words.slice(sliceFrom, words.length).join(' '));
+          sliceFrom = i;
+        }
+      }
+
+      // write lines to the canvas
+      for (var i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], x, y);
+        y += lineHeight;
+      }
+    };
+
+    var canvasCreate = function (doubleCheck) {
+      // loading
+      Notiflix.Block.Standard('.export', 'Please wait...');
+
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var canvasW = canvas.width;
+      var canvasH = canvas.height;
+      var posXCenter = canvasW / 2;
+      var posYCenter = canvasH / 2;
+      context.font = 'normal 20px "Montserrat", sans-serif';
+      context.fillText(' ', 0, 0);
+      context.save();
+
+      // image
+      var img = document.getElementById('image');
+      context.drawImage(img, 0, 0, 1920, 1920 * (img.height / img.width));
+
+      // effect
+      var grunge = document.getElementById('grunge');
+      context.filter = 'grayscale(100%)';
+      context.globalAlpha = 0.5;
+      context.drawImage(grunge, 0, 0, 1920, 1920);
+      context.filter = 'none';
+      context.globalAlpha = 1;
+
+      // overlay
+      context.fillStyle = 'rgba(0,0,0,0.3)';
+      context.fillRect(0, 0, canvasW, canvasH);
+
+      // icon
+      var icon = document.getElementById('icon');
+      var iconWH = 200;
+      context.globalAlpha = 0.7;
+      context.drawImage(icon, (posXCenter - (iconWH / 2)), posYCenter - (iconWH * 1.5), iconWH, iconWH);
+      context.globalAlpha = 1;
+
+      // all text
+      context.fillStyle = '#fff';
+      context.textAlign = 'center';
+      var contentMaxWidth = canvasW - (canvasW / 3);
+
+      // title
+      var title = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+      context.font = '600 75px "Montserrat", sans-serif';
+      var titleLineHeight = 120;
+      var titleMaxLength = 75;
+      var titlePosTop = 360;
+      multilineTextToCanvasContext(context, title, titleLineHeight, titleMaxLength, posXCenter, titlePosTop, contentMaxWidth);
+
+      // message
+      var message = 'Lorem ipsum dolor sit amet, cons ectetur adip iscing elit, sed do eiusmod tempor incid idunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exer citation ullamco lab oris nisi ut aliquip ex ea comm odo cons equat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+      context.font = 'normal 60px "Montserrat", sans-serif';
+      var messageLineHeight = 90;
+      var messageMaxLength = 160;
+      var messagePosTop = posYCenter + 100;
+      multilineTextToCanvasContext(context, message, messageLineHeight, messageMaxLength, posXCenter, messagePosTop, contentMaxWidth);
+
+      // author text
+      var author = '- John DOE -';
+      context.font = '500 50px "Montserrat", sans-serif';
+      context.fillStyle = 'rgba(255,255,255,0.7)';
+      var authorLineHeight = 50;
+      var authorMaxLength = 20;
+      var authorPosBottom = canvasH - 450;
+      multilineTextToCanvasContext(context, author, authorLineHeight, authorMaxLength, posXCenter, authorPosBottom, contentMaxWidth);
+
+      // domain text
+      var domain = 'example.com';
+      context.font = '400 44px "Montserrat", sans-serif';
+      context.fillStyle = 'rgba(255,255,255,0.6)';
+      var domainLineHeight = 50;
+      var domainMaxLength = 20;
+      var domainPosBottom = canvasH - 100;
+      multilineTextToCanvasContext(context, domain, domainLineHeight, domainMaxLength, posXCenter, domainPosBottom, contentMaxWidth);
+
+      context.restore();
+
+      // to solve the issue of fetching the fonts from url
+      if (doubleCheck) {
+        var tmt = setTimeout(function t() {
+          // create canvas again
+          canvasCreate(false);
+
+          // remove loadinh indicator
+          Notiflix.Block.Remove('.export', 360);
+
+          // create img to download
+          canvasDownload(canvas);
+
+          clearTimeout(tmt);
+        }, 1000);
+      }
+    };
+
+    var canvasDownload = function d(canvas) {
+      // canvas to png
+      var fullQuality = canvas.toDataURL('image/png', 1.0);
+      var exportImg = document.getElementById('export');
+      exportImg.setAttribute('src', fullQuality);
+
+      // download link button
+      var link = document.getElementById('DownLink');
+      link.setAttribute('href', fullQuality);
+    };
+
+  </script>
+
+</body>
+
+</html>
