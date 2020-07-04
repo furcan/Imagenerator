@@ -3,6 +3,9 @@
 
 <head>
   <title>Just a Test</title>
+  <meta name="robots" content="noindex, nofollow, noodp, noydir" />
+  <meta name="googlebot" content="noindex, nofollow, noodp, noydir" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link rel="dns-prefetch" href="//fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800,900&amp;display=swap&amp;subset=latin-ext" rel="stylesheet" />
 
@@ -16,6 +19,9 @@
     body {
       padding: 0;
       margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
     }
 
     .flex {
@@ -24,6 +30,7 @@
       flex-wrap: wrap;
       align-items: flex-start;
       justify-content: center;
+      margin: 0 0 60px;
     }
 
     h1 {
@@ -32,9 +39,9 @@
     }
 
     .col {
-      width: 30%;
-      padding: 30px;
-      margin: 0 0 60px;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
       display: flex;
       flex-wrap: wrap;
       flex-direction: column;
@@ -90,6 +97,26 @@
       box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
     }
 
+    .input-wrapper {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .input {
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      height: 40px;
+      margin: 10px 0;
+      padding: 10px 15px;
+    }
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/notiflix@2.3.3/dist/notiflix-aio-2.3.3.min.js"></script>
 </head>
@@ -98,7 +125,7 @@
 
   <div class="flex">
 
-    <div class="col d-none">
+    <div class="col d-source">
       <h1>Source</h1>
       <!-- <img id="grunge" class="d-none" crossorigin="anonymous" src="https://images.unsplash.com/photo-1527049979667-990f1d0d8e7f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" /> -->
       <!-- <img id="image" crossorigin="anonymous" src="https://images.unsplash.com/photo-1482953049121-a32d321c2000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" /> -->
@@ -109,13 +136,27 @@
       <!-- <img id="icon" crossorigin="anonymous" style="display: none;" src="https://i.ibb.co/pKtMRdZ/poem-2.png" width="200" height="200" alt="Source" /> -->
     </div>
 
-    <div class="col d-opacity">
+    <div class="col">
       <h1>Canvas</h1>
-      <canvas id="canvas" width="1920" height="1920" style="border:2px solid #d3d3d3;">Your browser does not support the HTML canvas tag.</canvas>
+      <div class="d-opacity">
+        <canvas id="canvas" width="1920" height="1920" style="border:2px solid #d3d3d3;">Your browser does not support the HTML canvas tag.</canvas>
+      </div>
+
+      <div class="input-wrapper">
+        <div class="input">
+          <input id="title" type="text" placeholder="Title" />
+        </div>
+        <div class="input">
+          <input id="desc" type="text" placeholder="Description" />
+        </div>
+        <div class="input">
+          <input id="author" type="text" placeholder="Author" />
+        </div>
+      </div>
     </div>
 
     <div class="col">
-      <h1>Export</h1>
+      <h1>PNG</h1>
       <div class="export">
         <img id="export" src="placeholder.png" alt="Export" width="1920" height="1920" />
       </div>
@@ -186,6 +227,10 @@
     };
 
     var canvasCreate = function (doubleCheck) {
+      var ttl = document.getElementById('title').value || null;
+      var dsc = document.getElementById('desc').value || null;
+      var athr = document.getElementById('author').value || null;
+
       // loading
       Notiflix.Block.Standard('.export', 'Please wait...');
 
@@ -228,7 +273,7 @@
       var contentMaxWidth = canvasW - (canvasW / 3);
 
       // title
-      var title = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+      var title = ttl || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
       context.font = '600 75px "Montserrat", sans-serif';
       var titleLineHeight = 120;
       var titleMaxLength = 75;
@@ -236,7 +281,7 @@
       multilineTextToCanvasContext(context, title, titleLineHeight, titleMaxLength, posXCenter, titlePosTop, contentMaxWidth);
 
       // message
-      var message = 'Lorem ipsum dolor sit amet, cons ectetur adip iscing elit, sed do eiusmod tempor incid idunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exer citation ullamco lab oris nisi ut aliquip ex ea comm odo cons equat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+      var message = dsc || 'Lorem ipsum dolor sit amet, cons ectetur adip iscing elit, sed do eiusmod tempor incid idunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exer citation ullamco lab oris nisi ut aliquip ex ea comm odo cons equat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
       context.font = 'normal 60px "Montserrat", sans-serif';
       var messageLineHeight = 90;
       var messageMaxLength = 160;
@@ -244,7 +289,7 @@
       multilineTextToCanvasContext(context, message, messageLineHeight, messageMaxLength, posXCenter, messagePosTop, contentMaxWidth);
 
       // author text
-      var author = '- John DOE -';
+      var author = athr || '- John DOE -';
       context.font = '500 50px "Montserrat", sans-serif';
       context.fillStyle = 'rgba(255,255,255,0.7)';
       var authorLineHeight = 50;
@@ -253,7 +298,7 @@
       multilineTextToCanvasContext(context, author, authorLineHeight, authorMaxLength, posXCenter, authorPosBottom, contentMaxWidth);
 
       // domain text
-      var domain = 'example.com';
+      var domain = 'furcan.net';
       context.font = '400 44px "Montserrat", sans-serif';
       context.fillStyle = 'rgba(255,255,255,0.6)';
       var domainLineHeight = 50;
