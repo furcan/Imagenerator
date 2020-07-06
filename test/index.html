@@ -181,41 +181,46 @@
       text = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
 
       // variables
-      var words = text.split(' ');
+      var words1 = text.split(' ');
+      var words2 = [];
       var lines = [];
       var sliceFrom = 0;
 
       // check for long words
-      for (var i = 0; i < words.length; i++) {
-        var word = words[i];
+      var longWords = [];
+      var longWord = '';
+      for (var i = 0; i < words1.length; i++) {
+        var word = words1[i];
         var wordWidth = parseInt(ctx.measureText(word).width);
-        if (wordWidth > maxWidth) {
-          words.splice(i, 1);
 
+        if (wordWidth > maxWidth) {
+          words1.splice(i, 1);
           var chars = word.split('');
           for (var ci = 0; ci < chars.length; ci++) {
-            var txt = (txt || '') + chars[ci];
-            var strWidth = parseInt(ctx.measureText(txt).width);
-            if (strWidth > maxWidth) {
-              words.splice(i, 0, txt);
-              txt = txt.replace(txt, '');
+            longWord = longWord + chars[ci];
+            var longWordWidth = parseInt(ctx.measureText(longWord).width);
+            if (longWordWidth > maxWidth) {
+              longWords.push(longWord);
+              longWord = longWord.replace(longWord, '');
             }
-            // TODO: Add rest here.
           }
+          longWords.push(longWord);
+          longWord = longWord.replace(longWord, '');
         }
+        words2 = longWords.concat(words1);
       }
 
       // create lines from words
-      for (var i = 0; i < words.length; i++) {
-        var chunk = words.slice(sliceFrom, i).join(' ');
-        var last = i === words.length - 1;
+      for (var i = 0; i < words2.length; i++) {
+        var chunk = words2.slice(sliceFrom, i).join(' ');
+        var last = i === words2.length - 1;
         var bigger = parseInt(ctx.measureText(chunk).width) > maxWidth;
         if (bigger) {
-          lines.push(words.slice(sliceFrom, i).join(' '));
+          lines.push(words2.slice(sliceFrom, i).join(' '));
           sliceFrom = i;
         }
         if (last) {
-          lines.push(words.slice(sliceFrom, words.length).join(' '));
+          lines.push(words2.slice(sliceFrom, words2.length).join(' '));
           sliceFrom = i;
         }
       }
@@ -227,7 +232,7 @@
       }
     };
 
-    var canvasCreate = function (doubleCheck) {
+    var canvasCreate = function cc(doubleCheck) {
       var ttl = document.getElementById('title').value || null;
       var dsc = document.getElementById('desc').value || null;
       var athr = document.getElementById('author').value || null;
@@ -336,7 +341,6 @@
       var link = document.getElementById('DownLink');
       link.setAttribute('href', fullQuality);
     };
-
   </script>
 
 </body>
