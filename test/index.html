@@ -166,10 +166,25 @@
   </div>
 
   <div class="flex">
-    <button onclick="canvasCreate(true)">CREATE COVER IMAGE</button>
+    <button onclick="canvasCreate()">CREATE COVER IMAGE with DOM ELEMENT</button>
+  </div>
+
+  <div class="flex">
+    <button data-src="https://images.unsplash.com/photo-1482953049121-a32d321c2000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" onclick="canvasCreateWithDataAttr(this)">CREATE COVER IMAGE with DATA ATTR</button>
   </div>
 
   <script>
+    var canvasCreateWithDataAttr = function t(element) {
+      var img = new Image();
+      img.setAttribute('crossorigin', 'anonymous');
+      img.setAttribute('src', element.dataset.src);
+      img.setAttribute('width', 1920);
+      img.onload = function imgOnLoad() {
+        canvasCreate(img, true);
+        img = null;
+      };
+    };
+
     var multilineTextToCanvasContext = function mlTxtToCnvsCtx(ctx, text, lineHeight, maxLength, x, y, maxWidth) {
       // check ctx, text and text length
       if (typeof ctx !== 'object' && typeof text !== 'string') {
@@ -232,7 +247,9 @@
       }
     };
 
-    var canvasCreate = function cc(doubleCheck) {
+    var canvasCreate = function cc(image, doubleCheck) {
+      if (typeof image !== 'object') { image = null; }
+      if (typeof doubleCheck === 'undefined') { doubleCheck = true; }
       var ttl = document.getElementById('title').value || null;
       var dsc = document.getElementById('desc').value || null;
       var athr = document.getElementById('author').value || null;
@@ -251,7 +268,7 @@
       context.save();
 
       // image
-      var img = document.getElementById('image');
+      var img = image || document.getElementById('image');
       context.drawImage(img, 0, 0, 1920, 1920 * (img.height / img.width));
 
       // effect
@@ -318,7 +335,7 @@
       if (doubleCheck) {
         var tmt = setTimeout(function t() {
           // create canvas again
-          canvasCreate(false);
+          canvasCreate(img, false);
 
           // remove loadinh indicator
           Notiflix.Block.Remove('.export', 360);
