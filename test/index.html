@@ -40,7 +40,7 @@
 
     .col {
       width: 100%;
-      max-width: 400px;
+      max-width: 600px;
       padding: 20px;
       display: flex;
       flex-wrap: wrap;
@@ -147,25 +147,29 @@
   <script>
     $(document).on('click', '.js-button-imagenerator', function f() {
       var Furkan = new Imagenerator({
+        direction: 'ltr',
+        quailty: 1,
+        fontCheck: true,
         background: {
-          url: 'https://images.unsplash.com/photo-1482953049121-a32d321c2000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80',
+          url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/imagenerator-background.png?token=AL5JVG5W523LE3JE77VXTZS7IQUMQ',
           crossorigin: 'anonymous',
-          width: 1920,
-          height: 2560,
-          overlay: {
-            use: true,
-            color: 'rgba(0,0,0,0.5)'
-          },
         },
         title: {
           use: true,
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          fontSize: 75,
-          lineHeight: 120,
-          fontWeight: 600,
-          textAlign: 'left',
-          fontFamily: 'sans-serif',
+          text: 'The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny.',
+          fontFamily: 'Montserrat, sans-serif',
+          color: '#fc0',
         },
+        description: {
+          use: true,
+          text: 'The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny. The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny.',
+          fontFamily: 'Montserrat, sans-serif',
+          color: '#b5b5b5',
+        },
+        icon: {
+          use: true,
+          url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/imagenerator-icon.png?token=AL5JVG4UYIKP3PXBWG7HNPK7IQUMW',
+        }
       }).GetBase64(function (response) {
         if (response.loading) {
           Notiflix.Block.Dots('.export', 'Please wait...');
