@@ -50,7 +50,8 @@
     }
 
     .export {
-      border: 1px solid gray;
+      border: 1px solid black;
+      border-radius: 2px;
     }
 
     canvas,
@@ -58,6 +59,7 @@
       display: block;
       width: 100%;
       height: auto;
+      border-radius: 2px;
     }
 
     .d-none {
@@ -118,43 +120,15 @@
     }
 
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/notiflix@2.3.3/dist/notiflix-aio-2.3.3.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/notiflix@2.4.0/dist/notiflix-aio-2.4.0.min.js"></script>
+  <script src="imagenerator.js"></script>
 </head>
 
 <body>
 
   <div class="flex">
-
-    <div class="col d-source">
-      <h1>Source</h1>
-      <!-- <img id="grunge" class="d-none" crossorigin="anonymous" src="https://images.unsplash.com/photo-1527049979667-990f1d0d8e7f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" /> -->
-      <!-- <img id="image" crossorigin="anonymous" src="https://images.unsplash.com/photo-1482953049121-a32d321c2000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" /> -->
-      <img id="grunge" class="d-none" crossorigin="anonymous" src="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" />
-      <img id="image" crossorigin="anonymous" src="https://images.unsplash.com/photo-1421790817162-a68f1875ef89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" alt="Source" width="1920" height="1920" />
-      <!-- <img id="icon" crossorigin="anonymous" class="d-none" src="https://i.ibb.co/xXCm9rs/poem-1.png" width="200" height="200" alt="Source" /> -->
-      <img id="icon" crossorigin="anonymous" class="d-none" src="https://i.ibb.co/876DPQJ/poem.png" width="200" height="200" alt="Source" />
-      <!-- <img id="icon" crossorigin="anonymous" style="display: none;" src="https://i.ibb.co/pKtMRdZ/poem-2.png" width="200" height="200" alt="Source" /> -->
-    </div>
-
-    <div class="col">
-      <h1>Canvas</h1>
-      <div class="d-opacity">
-        <canvas id="canvas" width="1920" height="1920" style="border:2px solid #d3d3d3;">Your browser does not support the HTML canvas tag.</canvas>
-      </div>
-
-      <div class="input-wrapper">
-        <div class="input">
-          <input id="title" type="text" placeholder="Title" />
-        </div>
-        <div class="input">
-          <input id="desc" type="text" placeholder="Description" />
-        </div>
-        <div class="input">
-          <input id="author" type="text" placeholder="Author" />
-        </div>
-      </div>
-    </div>
-
     <div class="col">
       <h1>PNG</h1>
       <div class="export">
@@ -162,18 +136,54 @@
       </div>
       <a id="DownLink" href="#" download="This-Is-An-Image">Download</a>
     </div>
-
   </div>
 
+  <!-- new one: begin -->
   <div class="flex">
-    <button onclick="canvasCreate()">CREATE COVER IMAGE with DOM ELEMENT</button>
+    <button type="button" class="js-button-imagenerator" data-imagenerator-image="test-1.jpeg" data-imagenerator-icon="icon-1-white.png">CREATE COVER IMAGE with DATA ATTR</button>
   </div>
-
-  <div class="flex">
-    <button data-src="https://images.unsplash.com/photo-1482953049121-a32d321c2000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80" onclick="canvasCreateWithDataAttr(this)">CREATE COVER IMAGE with DATA ATTR</button>
-  </div>
+  <!-- new one: end -->
 
   <script>
+    $(document).on('click', '.js-button-imagenerator', function f() {
+      var Furkan = new Imagenerator({
+        background: {
+          url: 'https://images.unsplash.com/photo-1482953049121-a32d321c2000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=80',
+          crossorigin: 'anonymous',
+          width: 1920,
+          height: 2560,
+          overlay: {
+            use: true,
+            color: 'rgba(0,0,0,0.5)'
+          },
+        },
+        title: {
+          use: true,
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          fontSize: 75,
+          lineHeight: 120,
+          fontWeight: 600,
+          textAlign: 'left',
+          fontFamily: 'sans-serif',
+        },
+      }).GetBase64(function (response) {
+        if (response.loading) {
+          Notiflix.Block.Dots('.export', 'Please wait...');
+
+        } else {
+          Notiflix.Block.Remove('.export', 1000);
+
+          var tempExportImageElement = window.document.getElementById('export');
+          var base64 = response.base64;
+          tempExportImageElement.setAttribute('src', base64);
+        }
+      });
+
+    });
+  </script>
+
+
+  <!-- <script>
     var canvasCreateWithDataAttr = function t(element) {
       var img = new Image();
       img.setAttribute('crossorigin', 'anonymous');
@@ -358,7 +368,7 @@
       var link = document.getElementById('DownLink');
       link.setAttribute('href', fullQuality);
     };
-  </script>
+  </script> -->
 
 </body>
 
