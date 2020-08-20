@@ -29,8 +29,9 @@
   // Options: begin
   var imageneratorOptions = {
     direction: 'ltr', // "ltr" || "rtl"
-    quailty: 1, // 0.5 - 1
-    fontCheck: true,
+    type: 'jpeg', // "png" || "jpeg" || "webp"
+    quailty: 0.75, // "0.25" - "1"
+    fontFix: false,
     background: {
       url: null,
       crossorigin: 'anonymous',
@@ -38,42 +39,72 @@
       height: 1920,
       overlay: {
         use: true,
-        color: 'rgba(0,0,0,0.7)',
+        color: 'rgba(0,0,0,0.4)',
       },
     },
     title: {
       use: true,
-      positionTop: 280,
+      positionTop: 360,
       text: 'Imagenerator',
-      maxLength: 100,
-      fontSize: 70,
+      maxLength: 120,
+      fontSize: 80,
       fontWeight: 600,
       textAlign: 'center',
       fontFamily: 'sans-serif',
       color: '#fff',
+      shadowColor: 'rgba(0,0,0,0.2)',
+      shadowBlur: 120,
     },
     icon: {
       use: false,
       url: null,
-      positionTop: 650,
+      positionTop: 625,
       width: 240,
       height: 240,
       align: 'center',
       opacity: 1,
+      shadowColor: 'rgba(0,0,0,0.2)',
+      shadowBlur: 120,
     },
     description: {
       use: true,
       positionTop: 1100,
       text: 'The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny.',
-      maxLength: 240,
-      fontSize: 50,
+      maxLength: 300,
+      fontSize: 55,
       fontWeight: 400,
       textAlign: 'center',
       fontFamily: 'sans-serif',
-      color: '#b5b5b5',
+      color: '#f8f8f8',
+      shadowColor: 'rgba(0,0,0,0.2)',
+      shadowBlur: 120,
     },
-    author: 'Mustafa Kemal ATATURK',
-    domain: 'example.com',
+    author: {
+      use: true,
+      positionTop: 1450,
+      text: '- Mustafa Kemal ATATURK -',
+      maxLength: 120,
+      fontSize: 40,
+      fontWeight: 400,
+      textAlign: 'center',
+      fontFamily: 'sans-serif',
+      color: '#dadada',
+      shadowColor: 'rgba(0,0,0,0.2)',
+      shadowBlur: 120,
+    },
+    domain: {
+      use: true,
+      positionBottom: 100,
+      text: 'github.com/furcan',
+      maxLength: 120,
+      fontSize: 35,
+      fontWeight: 400,
+      textAlign: 'center',
+      fontFamily: 'sans-serif',
+      color: '#dadada',
+      shadowColor: 'rgba(0,0,0,0.2)',
+      shadowBlur: 120,
+    },
   };
   // Options: end
 
@@ -109,13 +140,18 @@
   };
   // Extend Options: end
 
-  var multilineTextToCanvasContext = function mlTxtToCnvsCtx(ctx, text, lineHeight, maxLength, x, y, maxWidth) {
-    // check ctx, text and text length
-    if (typeof ctx !== 'object' && typeof text !== 'string') {
-      return false;
-    }
+  var imageneratorCheckString = function checkString(string) {
+    return typeof string === 'string' && string.length > 0;
+  };
+
+  var imageneratorCheckNumber = function checkString(number) {
+    return typeof number === 'number' && number > 0;
+  };
+
+  var imageneratorMultilineTextToCanvasContext = function mlTxtToCnvsCtx(ctx, text, lineHeight, maxLength, x, y, maxWidth) {
     // message max length
-    maxLength = typeof maxLength === 'number' && maxLength > 0 ? maxLength : 100;
+    maxLength = imageneratorCheckNumber(maxLength) ? maxLength : 120;
+
     // text substring
     text = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
 
@@ -171,19 +207,216 @@
     }
   };
 
-  var imageneratorCheckString = function checkString(string) {
-    return typeof string === 'string' && string.length > 0;
+  var imageneratorFillTextToCanvasContent = function fillText(self, item, ctx, canvasOpt) {
+    var useItem = item.use === true;
+    if (useItem) {
+      // item, default options
+      var defaultOpt = imageneratorOptions[self];
+
+      // item, text
+      var text = item.text;
+      text = imageneratorCheckString(text) ? text : defaultOpt.text;
+
+      // item, text align
+      var textAlign = item.textAlign;
+      textAlign = imageneratorCheckString(textAlign) ? textAlign : defaultOpt.textAlign;
+
+      // item, pos x by alignment
+      var posX = canvasOpt.posXCenter;
+      if (textAlign === 'left') {
+        posX = canvasOpt.contentPosLeft;
+      } else if (textAlign === 'right') {
+        posX = canvasOpt.contentPosRight;
+      }
+
+      // item, pos top
+      var posTop = item.positionTop;
+      posTop = imageneratorCheckNumber(posTop) ? posTop : defaultOpt.positionTop;
+      if (!posTop) {
+        var posBottom = item.positionBottom;
+        posBottom = imageneratorCheckNumber(posBottom) ? posBottom : defaultOpt.positionBottom;
+        posTop = (canvasOpt.height - posBottom);
+      }
+
+      // item, font && line height
+      var fontSize = item.fontSize;
+      var lineHeight = imageneratorCheckNumber(fontSize) ? (fontSize * 1.5) : (defaultOpt.fontSize * 1.5);
+      fontSize = imageneratorCheckNumber(fontSize) ? (fontSize + 'px') : (defaultOpt.fontSize + 'px');
+
+      var fontWeight = item.fontWeight;
+      fontWeight = imageneratorCheckNumber(fontWeight) ? fontWeight : defaultOpt.fontWeight;
+
+      var fontFamily = item.fontFamily;
+      fontFamily = imageneratorCheckString(fontFamily) ? fontFamily : defaultOpt.fontFamily;
+
+      var font = fontWeight + ' ' + fontSize + ' ' + fontFamily;
+
+      // item, max length
+      var maxLength = item.maxLength;
+      maxLength = imageneratorCheckNumber(maxLength) ? maxLength : defaultOpt.maxLength;
+
+      // item, color
+      var color = item.color;
+      color = imageneratorCheckString(color) ? color : defaultOpt.color;
+
+      // item, shadow color
+      var shadowColor = item.shadowColor;
+      shadowColor = imageneratorCheckString(shadowColor) ? shadowColor : defaultOpt.shadowColor;
+
+      // item, shadow blur
+      var shadowBlur = item.shadowColor;
+      shadowBlur = imageneratorCheckNumber(shadowBlur) ? shadowBlur : defaultOpt.shadowBlur;
+
+      // item, context
+      ctx.font = font;
+      ctx.textAlign = textAlign;
+      ctx.fillStyle = color;
+      ctx.shadowColor = shadowColor;
+      ctx.shadowBlur = shadowBlur;
+
+      // fill item to the canvas
+      imageneratorMultilineTextToCanvasContext(ctx, text, lineHeight, maxLength, posX, posTop, canvasOpt.contentMaxWidth);
+    }
   };
 
-  var imageneratorCheckNumber = function checkString(number) {
-    return typeof number === 'number' && number > 0;
+  var imageneratorCanvas = function createCanvas(width, height, image, iconObj, options, callback, fontFix) {
+    // check the image: begin
+    var checkTheImage = ((image || {}).tagName || '').toLocaleLowerCase('en') === 'img';
+    if (!checkTheImage) {
+      console.log('TODO: image?');
+      return false;
+    }
+    // check the image: end
+
+    // canvas: begin
+    var canvas = window.document.createElement('canvas');
+    if (!canvas) {
+      console.log('TODO: canvas?');
+      return false;
+    }
+    canvas.width = width;
+    canvas.height = height;
+    var canvasPosXCenter = width / 2;
+    var canvasPosYCenter = height / 2;
+    var canvasContentMaxWidth = parseInt(width - (width / 3));
+    var canvasContentPosLeft = parseInt((width - canvasContentMaxWidth) / 3.5);
+    var canvasContentPosRight = parseInt(width - canvasContentPosLeft);
+    var canvasOptions = {
+      width: width,
+      height: height,
+      posXCenter: canvasPosXCenter,
+      posYCenter: canvasPosYCenter,
+      contentMaxWidth: canvasContentMaxWidth,
+      contentPosLeft: canvasContentPosLeft,
+      contentPosRight: canvasContentPosRight,
+    };
+    // canvas: end
+
+    // context: begin
+    var context = canvas.getContext('2d');
+
+    // context, ready for font
+    context.font = 'normal 35px sans-serif';
+    context.fillStyle = '#fff';
+    context.textAlign = 'center';
+    context.fillText(' ', 0, 0);
+
+    // context, "ltr" or "rtl"
+    var directionList = ['ltr', 'rtl'];
+    var direction = (options || {}).direction;
+    direction = directionList.indexOf(direction) > -1 ? direction : imageneratorOptions.direction;
+    context.direction = direction;
+
+    // contex, save
+    context.save();
+    // context: end
+
+    // draw image: begin
+    context.drawImage(image, 0, 0, width, height);
+    // draw image: end
+
+    // draw overlay: begin
+    var hasOverlay = (((options || {}).background || {}).overlay || {}).use === true;
+    if (hasOverlay) {
+      var overlayColor = (((options || {}).background || {}).overlay || {}).color;
+      overlayColor = imageneratorCheckString(overlayColor) ? overlayColor : imageneratorOptions.background.overlay.color;
+      context.fillStyle = overlayColor;
+      context.fillRect(0, 0, width, height);
+      context.restore();
+    }
+    // draw overlay: end
+
+    // icon: begin
+    if (iconObj) {
+      // icon, alignment
+      var iconAlign = ((options || {}).icon || {}).align;
+      iconAlign = imageneratorCheckString(iconAlign) ? iconAlign : imageneratorOptions.icon.align;
+      var iconPosX = parseInt(canvasPosXCenter - (iconObj.width / 2));
+      if (iconAlign === 'left') {
+        iconPosX = canvasContentPosLeft;
+      } else if (iconAlign === 'right') {
+        iconPosX = parseInt(canvasContentPosRight - (iconObj.width));
+      }
+
+      // icon, opacity
+      var iconOpacity = ((options || {}).icon || {}).opacity;
+      iconOpacity = imageneratorCheckNumber(iconOpacity) ? iconOpacity : imageneratorOptions.icon.opacity;
+
+      // icon, pos top
+      var iconPosTop = ((options || {}).icon || {}).positionTop;
+      iconPosTop = imageneratorCheckNumber(iconPosTop) ? iconPosTop : imageneratorOptions.icon.positionTop;
+
+      // item, shadow color
+      var iconShadowColor = ((options || {}).icon || {}).shadowColor;
+      iconShadowColor = imageneratorCheckString(iconShadowColor) ? iconShadowColor : imageneratorOptions.icon.shadowColor;
+
+      // item, shadow blur
+      var iconShadowBlur = ((options || {}).icon || {}).shadowBlur;
+      iconShadowBlur = imageneratorCheckNumber(iconShadowBlur) ? iconShadowBlur : imageneratorOptions.icon.shadowBlur;
+
+      // icon, draw
+      context.globalAlpha = iconOpacity;
+      context.shadowColor = iconShadowColor;
+      context.shadowBlur = iconShadowBlur;
+      context.drawImage(iconObj.element, iconPosX, iconPosTop, iconObj.width, iconObj.height);
+      context.globalAlpha = 1;
+    }
+    // icon: end
+
+    // title: begin
+    imageneratorFillTextToCanvasContent('title', options.title, context, canvasOptions);
+    // title: end
+
+    // description: begin
+    imageneratorFillTextToCanvasContent('description', options.description, context, canvasOptions);
+    // description: end
+
+    // author: begin
+    imageneratorFillTextToCanvasContent('author', options.author, context, canvasOptions);
+    // author: end
+
+    // domain: begin
+    imageneratorFillTextToCanvasContent('domain', options.domain, context, canvasOptions);
+    // domain: end
+
+    // return: begin
+    if (typeof callback === 'function') {
+      var quailty = typeof options.quailty === 'number' && options.quailty > 0.25 ? options.quailty : imageneratorOptions.quailty;
+      var typeArray = ['png', 'jpeg', 'webp'];
+      var type = imageneratorCheckString(options.type) && typeArray.indexOf(options.type) > -1 ? options.type : imageneratorOptions.type;
+      var base64 = canvas.toDataURL(('image/' + type), quailty);
+      var response = {
+        base64: fontFix ? null : base64,
+        loading: fontFix ? true : false,
+      };
+      return callback(response);
+    } else {
+      return false;
+    }
+    // return: end
   };
 
-  var imageneratorCheckBool = function checkBool(bool) {
-    return bool === true;
-  };
-
-  var imageneratorInit = function init(userOptions, callback) {
+  var imageneratorInit = function init(userOptions, callback, fontFix) {
     // check and merge user options
     userOptions = typeof userOptions === 'object' && !Array.isArray(userOptions) ? userOptions : {};
     var newOptions = imageneratorExtendOptions(true, imageneratorOptions, userOptions);
@@ -206,9 +439,6 @@
       // get and check "height"
       var backgroundHeight = ((newOptions || {}).background || {}).height;
       backgroundHeight = imageneratorCheckNumber(backgroundHeight) ? backgroundHeight : imageneratorOptions.background.height;
-
-      // get and check "fontCheck"
-      var fontCheck = (newOptions || {}).fontCheck === true;
 
       // create new image
       var image = new Image();
@@ -246,14 +476,14 @@
             height: iconHeight,
           };
 
+          // icon, on load
           icon.onload = function iconOnLoad() {
-            imageneratorCreateCanvas(backgroundWidth, backgroundHeight, image, iconObj, fontCheck, newOptions, callback);
+            imageneratorCanvas(backgroundWidth, backgroundHeight, image, iconObj, newOptions, callback, fontFix);
           };
-
         }
         // else: only background image
         else {
-          imageneratorCreateCanvas(backgroundWidth, backgroundHeight, image, false, fontCheck, newOptions, callback);
+          imageneratorCanvas(backgroundWidth, backgroundHeight, image, false, newOptions, callback, fontFix);
         }
       };
 
@@ -274,334 +504,25 @@
     }
   };
 
-  var imageneratorCreateCanvas = function createCanvas(width, height, image, iconObj, fontCheck, options, callback) {
-    // check the image: begin
-    var checkTheImage = ((image || {}).tagName || '').toLocaleLowerCase('en') === 'img';
-    if (!checkTheImage) {
-      console.log('TODO: image?');
-      return false;
-    }
-    // check the image: end
-
-    // canvas: begin
-    var canvas = window.document.createElement('canvas');
-    if (!canvas) {
-      console.log('TODO: canvas?');
-      return false;
-    }
-    canvas.width = width;
-    canvas.height = height;
-    var canvasPosXCenter = width / 2;
-    var canvasPosYCenter = height / 2;
-    var canvasContentMaxWidth = parseInt(width - (width / 3));
-    var canvasContentPosLeft = parseInt((width - canvasContentMaxWidth) / 3.5);
-    var canvasContentPosRight = parseInt(width - canvasContentPosLeft);
-    // canvas: end
-
-    // context: begin
-    var context = canvas.getContext('2d');
-
-    // context, ready for font
-    context.font = 'normal 35px sans-serif';
-    context.fillStyle = '#fff';
-    context.textAlign = 'center';
-    context.fillText(' ', 0, 0);
-
-    // context, "ltr" or "rtl"
-    var directionList = ['ltr', 'rtl'];
-    var direction = (options || {}).direction;
-    direction = directionList.indexOf(direction) > -1 ? direction : imageneratorOptions.direction;
-    context.direction = direction;
-
-    // contex, save
-    context.save();
-    // context: end
-
-    // draw image: begin
-    context.drawImage(image, 0, 0, width, height);
-    // draw image: end
-
-    // draw overlay: begin
-    var hasOverlay = (((options || {}).background || {}).overlay || {}).use === true;
-    if (hasOverlay) {
-      var overlayColor = (((options || {}).background || {}).overlay || {}).color;
-      overlayColor = imageneratorCheckString(overlayColor) ? overlayColor : imageneratorOptions.background.overlay.color;
-      context.fillStyle = overlayColor;
-      context.fillRect(0, 0, width, height);
-      context.restore();
-    }
-    // draw overlay: end
-
-
-    // TODO: might be helpful: begin
-    // context.shadowColor = 'rgba(0,0,0,1)';
-    // context.shadowBlur = 100;
-    // TODO: might be helpful: end
-
-    // title: begin
-    var useTitle = ((options || {}).title || {}).use === true;
-    if (useTitle) {
-      // title, text
-      var titleText = ((options || {}).title || {}).text;
-      titleText = imageneratorCheckString(titleText) ? titleText : imageneratorOptions.title.text;
-
-      // title, text align
-      var titleTextAlign = ((options || {}).title || {}).textAlign;
-      titleTextAlign = imageneratorCheckString(titleTextAlign) ? titleTextAlign : imageneratorOptions.title.textAlign;
-
-      // title, pos x by alignment
-      var titlePosX = canvasPosXCenter;
-      if (titleTextAlign === 'left') {
-        titlePosX = canvasContentPosLeft;
-      } else if (titleTextAlign === 'right') {
-        titlePosX = canvasContentPosRight;
-      }
-
-      // title, pos top
-      var titlePosTop = ((options || {}).title || {}).positionTop;
-      titlePosTop = imageneratorCheckNumber(titlePosTop) ? titlePosTop : imageneratorOptions.title.positionTop;
-
-      // title, font && line height
-      var titleFontSize = ((options || {}).title || {}).fontSize;
-      var titleLineHeight = imageneratorCheckNumber(titleFontSize) ? (titleFontSize * 1.5) : (imageneratorOptions.title.fontSize * 1.5);
-      titleFontSize = imageneratorCheckNumber(titleFontSize) ? (titleFontSize + 'px') : (imageneratorOptions.title.fontSize + 'px');
-
-      var titleFontWeight = ((options || {}).title || {}).fontWeight;
-      titleFontWeight = imageneratorCheckNumber(titleFontWeight) ? titleFontWeight : imageneratorOptions.title.fontWeight;
-
-      var titleFontFamily = ((options || {}).title || {}).fontFamily;
-      titleFontFamily = imageneratorCheckString(titleFontFamily) ? titleFontFamily : imageneratorOptions.title.fontFamily;
-
-      var titleFont = titleFontWeight + ' ' + titleFontSize + ' ' + titleFontFamily;
-
-      // title, max length
-      var titleMaxLength = ((options || {}).title || {}).maxLength;
-      titleMaxLength = imageneratorCheckNumber(titleMaxLength) ? titleMaxLength : imageneratorOptions.title.maxLength;
-
-      // title, color
-      var titleColor = ((options || {}).title || {}).color;
-      titleColor = imageneratorCheckString(titleColor) ? titleColor : imageneratorOptions.title.color;
-
-      // title, context
-      context.font = titleFont;
-      context.textAlign = titleTextAlign;
-      context.fillStyle = titleColor;
-
-      // fill title to the canvas
-      multilineTextToCanvasContext(context, titleText, titleLineHeight, titleMaxLength, titlePosX, titlePosTop, canvasContentMaxWidth);
-    }
-    // title: end
-
-    // icon: begin
-    if (iconObj) {
-      // icon, alignment
-      var iconAlign = ((options || {}).icon || {}).align;
-      iconAlign = imageneratorCheckString(iconAlign) ? iconAlign : imageneratorOptions.icon.align;
-      var iconPosX = parseInt(canvasPosXCenter - (iconObj.width / 2));
-      if (iconAlign === 'left') {
-        iconPosX = canvasContentPosLeft;
-      } else if (iconAlign === 'right') {
-        iconPosX = parseInt(canvasContentPosRight - (iconObj.width));
-      }
-
-      // icon, opacity
-      var iconOpacity = ((options || {}).icon || {}).opacity;
-      iconOpacity = imageneratorCheckNumber(iconOpacity) ? iconOpacity : imageneratorOptions.icon.opacity;
-
-      // icon, pos top
-      var iconPosTop = ((options || {}).icon || {}).positionTop;
-      iconPosTop = imageneratorCheckNumber(iconPosTop) ? iconPosTop : imageneratorOptions.icon.positionTop;
-
-      // icon, draw
-      context.globalAlpha = iconOpacity;
-      context.drawImage(iconObj.element, iconPosX, iconPosTop, iconObj.width, iconObj.height);
-      context.globalAlpha = 1;
-    }
-    // icon: end
-
-    // description: begin
-    var useDescription = ((options || {}).description || {}).use === true;
-    if (useDescription) {
-      // description, text
-      var descriptionText = ((options || {}).description || {}).text;
-      descriptionText = imageneratorCheckString(descriptionText) ? descriptionText : imageneratorOptions.description.text;
-
-      // description, text align
-      var descriptionTextAlign = ((options || {}).description || {}).textAlign;
-      descriptionTextAlign = imageneratorCheckString(descriptionTextAlign) ? descriptionTextAlign : imageneratorOptions.description.textAlign;
-
-      // description, pos x by alignment
-      var descriptionPosX = canvasPosXCenter;
-      if (descriptionTextAlign === 'left') {
-        descriptionPosX = canvasContentPosLeft;
-      } else if (descriptionTextAlign === 'right') {
-        descriptionPosX = canvasContentPosRight;
-      }
-
-      // description, pos top
-      var descriptionPosTop = ((options || {}).description || {}).positionTop;
-      descriptionPosTop = imageneratorCheckNumber(descriptionPosTop) ? descriptionPosTop : imageneratorOptions.description.positionTop;
-
-      // description, font && line height
-      var descriptionFontSize = ((options || {}).description || {}).fontSize;
-      var descriptionLineHeight = imageneratorCheckNumber(descriptionFontSize) ? (descriptionFontSize * 1.5) : (imageneratorOptions.description.fontSize * 1.5);
-      descriptionFontSize = imageneratorCheckNumber(descriptionFontSize) ? (descriptionFontSize + 'px') : (imageneratorOptions.description.fontSize + 'px');
-
-      var descriptionFontWeight = ((options || {}).description || {}).fontWeight;
-      descriptionFontWeight = imageneratorCheckNumber(descriptionFontWeight) ? descriptionFontWeight : imageneratorOptions.description.fontWeight;
-
-      var descriptionFontFamily = ((options || {}).description || {}).fontFamily;
-      descriptionFontFamily = imageneratorCheckString(descriptionFontFamily) ? descriptionFontFamily : imageneratorOptions.description.fontFamily;
-
-      var descriptionFont = descriptionFontWeight + ' ' + descriptionFontSize + ' ' + descriptionFontFamily;
-
-      // description, max length
-      var descriptionMaxLength = ((options || {}).description || {}).maxLength;
-      descriptionMaxLength = imageneratorCheckNumber(descriptionMaxLength) ? descriptionMaxLength : imageneratorOptions.description.maxLength;
-
-      // description, color
-      var descriptionColor = ((options || {}).description || {}).color;
-      descriptionColor = imageneratorCheckString(descriptionColor) ? descriptionColor : imageneratorOptions.description.color;
-
-      // description, context
-      context.font = descriptionFont;
-      context.textAlign = descriptionTextAlign;
-      context.fillStyle = descriptionColor;
-
-      // fill description to the canvas
-      multilineTextToCanvasContext(context, descriptionText, descriptionLineHeight, descriptionMaxLength, descriptionPosX, descriptionPosTop, canvasContentMaxWidth);
-    }
-    // description: end
-
-
-    // check the uses: begin
-    var useAuthor = ((options || {}).author || {}).use === true;
-    var useDomain = ((options || {}).domain || {}).use === true;
-    // check the uses: end
-
-
-    // return: begin
-    if (typeof callback === 'function') {
-      var fullQuality = canvas.toDataURL('image/png', 1.0);
-      var loading = false;
-      var response = {
-        base64: fullQuality,
-        loading: loading,
-      };
-      return callback(response);
-    } else {
-      return false;
-    }
-    // return: end
-
-
-
-
-    var ttl = document.getElementById('title').value || null;
-    var dsc = document.getElementById('desc').value || null;
-    var athr = document.getElementById('author').value || null;
-
-    // loading
-    Notiflix.Block.Standard('.export', 'Please wait...');
-
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    var canvasW = canvas.width;
-    var canvasH = canvas.height;
-    var posXCenter = canvasW / 2;
-    var posYCenter = canvasH / 2;
-    context.font = 'normal 20px "Montserrat", sans-serif';
-    context.fillText(' ', 0, 0);
-    context.save();
-
-    // image
-    var img = image || document.getElementById('image');
-    context.drawImage(img, 0, 0, 1920, 1920 * (img.height / img.width));
-
-    // effect
-    var grunge = document.getElementById('grunge');
-    context.filter = 'grayscale(100%)';
-    context.globalAlpha = 0.5;
-    context.drawImage(grunge, 0, 0, 1920, 1920);
-    context.filter = 'none';
-    context.globalAlpha = 1;
-
-    // overlay
-    context.fillStyle = 'rgba(0,0,0,0.3)';
-    context.fillRect(0, 0, canvasW, canvasH);
-
-    // icon
-    var icon = document.getElementById('icon');
-    var iconWH = 200;
-    context.globalAlpha = 0.7;
-    context.drawImage(icon, (posXCenter - (iconWH / 2)), posYCenter - (iconWH * 1.5), iconWH, iconWH);
-    context.globalAlpha = 1;
-
-    // all text
-    context.fillStyle = '#fff';
-    context.textAlign = 'center';
-    var contentMaxWidth = canvasW - (canvasW / 3);
-
-    // title
-    var title = ttl || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-    context.font = '600 75px "Montserrat", sans-serif';
-    var titleLineHeight = 120;
-    var titleMaxLength = 75;
-    var titlePosTop = 360;
-    multilineTextToCanvasContext(context, title, titleLineHeight, titleMaxLength, posXCenter, titlePosTop, contentMaxWidth);
-
-    // message
-    var message = dsc || 'Lorem ipsum dolor sit amet, cons ectetur adip iscing elit, sed do eiusmod tempor incid idunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exer citation ullamco lab oris nisi ut aliquip ex ea comm odo cons equat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-    context.font = 'normal 60px "Montserrat", sans-serif';
-    var messageLineHeight = 90;
-    var messageMaxLength = 160;
-    var messagePosTop = posYCenter + 100;
-    multilineTextToCanvasContext(context, message, messageLineHeight, messageMaxLength, posXCenter, messagePosTop, contentMaxWidth);
-
-    // author text
-    var author = athr || '- John DOE -';
-    context.font = '500 50px "Montserrat", sans-serif';
-    context.fillStyle = 'rgba(255,255,255,0.7)';
-    var authorLineHeight = 50;
-    var authorMaxLength = 20;
-    var authorPosBottom = canvasH - 450;
-    multilineTextToCanvasContext(context, author, authorLineHeight, authorMaxLength, posXCenter, authorPosBottom, contentMaxWidth);
-
-    // domain text
-    var domain = 'furcan.net';
-    context.font = '400 44px "Montserrat", sans-serif';
-    context.fillStyle = 'rgba(255,255,255,0.6)';
-    var domainLineHeight = 50;
-    var domainMaxLength = 20;
-    var domainPosBottom = canvasH - 100;
-    multilineTextToCanvasContext(context, domain, domainLineHeight, domainMaxLength, posXCenter, domainPosBottom, contentMaxWidth);
-
-    context.restore();
-
-    // to solve the issue of fetching the fonts from url
-    if (fontCheck) {
-      var tmt = setTimeout(function t() {
-        // create canvas again
-        canvasCreate(img, false);
-
-        // remove loadinh indicator
-        Notiflix.Block.Remove('.export', 360);
-
-        // create img to download
-        canvasDownload(canvas);
-
-        clearTimeout(tmt);
-      }, 1000);
-    }
-  };
-
   var Imagenerator = function (options) {
     this.options = options;
   };
 
   Imagenerator.prototype = {
     GetBase64: function getBase64(callback) {
-      return imageneratorInit(this.options, callback);
+      var options = this.options;
+      var fontFix = options.fontFix === true;
+      var imagenerator = function name() {
+        imageneratorInit(options, callback, fontFix);
+        if (fontFix) {
+          fontFix = false;
+          var fontFixTimeout = setTimeout(function tmt() {
+            imageneratorInit(options, callback, fontFix);
+            clearTimeout(fontFixTimeout);
+          }, 1881);
+        }
+      };
+      return imagenerator();
     },
   };
 

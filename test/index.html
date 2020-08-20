@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link rel="dns-prefetch" href="//fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800,900&amp;display=swap&amp;subset=latin-ext" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -148,23 +149,36 @@
     $(document).on('click', '.js-button-imagenerator', function f() {
       var Furkan = new Imagenerator({
         direction: 'ltr',
-        quailty: 1,
-        fontCheck: true,
+        type: 'jpeg',
+        quailty: 0.5,
+        fontFix: false,
         background: {
           url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/imagenerator-background.png?token=AL5JVG5W523LE3JE77VXTZS7IQUMQ',
+          url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/ocean.jpeg?token=AL5JVG7VVTRGI3XYQD2YZIK7I7OZA',
           crossorigin: 'anonymous',
         },
         title: {
-          use: true,
-          text: 'The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny.',
-          fontFamily: 'Montserrat, sans-serif',
-          color: '#fc0',
+          // use: true,
+          text: 'Peace at home, peace in the world.',
+          // fontFamily: 'Montserrat, sans-serif',
+          // color: '#fc0',
+          // shadowColor: '#000',
+          // shadowBlur: 100,
         },
         description: {
-          use: true,
-          text: 'The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny. The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny.',
-          fontFamily: 'Montserrat, sans-serif',
-          color: '#b5b5b5',
+          // use: true,
+          // text: 'The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny. The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny.',
+          // fontFamily: 'La Belle Aurore, Montserrat, sans-serif',
+          // shadowColor: '#f0f',
+          // shadowBlur: 100,
+        },
+        author: {
+          // use: true,
+          // fontFamily: 'Montserrat, sans-serif',
+        },
+        domain: {
+          // use: true,
+          // fontFamily: 'Montserrat, sans-serif',
         },
         icon: {
           use: true,
