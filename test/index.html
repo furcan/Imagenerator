@@ -131,7 +131,7 @@
 
   <div class="flex">
     <div class="col">
-      <h1>PNG</h1>
+      <h1>IMAGE</h1>
       <div class="export">
         <img id="export" src="placeholder.png" alt="Export" width="1920" height="1920" />
       </div>
@@ -141,48 +141,45 @@
 
   <!-- new one: begin -->
   <div class="flex">
-    <button type="button" class="js-button-imagenerator" data-imagenerator-image="test-1.jpeg" data-imagenerator-icon="icon-1-white.png">CREATE COVER IMAGE with DATA ATTR</button>
+    <button type="button" class="js-button-imagenerator">GENERATE IMAGE</button>
   </div>
   <!-- new one: end -->
 
   <script>
     $(document).on('click', '.js-button-imagenerator', function f() {
       var Furkan = new Imagenerator({
-        direction: 'ltr',
-        type: 'jpeg',
-        quailty: 0.5,
-        fontFix: false,
+        // fontFix: true,
         background: {
-          url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/imagenerator-background.png?token=AL5JVG5W523LE3JE77VXTZS7IQUMQ',
-          url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/ocean.jpeg?token=AL5JVG7VVTRGI3XYQD2YZIK7I7OZA',
-          crossorigin: 'anonymous',
+          url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/window.jpg?token=AL5JVG2KXMG7WXQNE25CD7K7L5ZKG',
+          url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/feather.jpg?token=AL5JVG3R32KE55NFUJN7HI27L5ZJI',
         },
         title: {
-          // use: true,
-          text: 'Peace at home, peace in the world.',
+          // text: 'Peace at home, peace in the world.',
           // fontFamily: 'Montserrat, sans-serif',
           // color: '#fc0',
           // shadowColor: '#000',
           // shadowBlur: 100,
         },
         description: {
-          // use: true,
-          // text: 'The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny. The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny.',
+          // text: 'The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny.',
+          // fontSize: 75,
           // fontFamily: 'La Belle Aurore, Montserrat, sans-serif',
-          // shadowColor: '#f0f',
+          // shadowColor: '#000',
           // shadowBlur: 100,
         },
         author: {
-          // use: true,
-          // fontFamily: 'Montserrat, sans-serif',
+          // positionTop: 1600,
+          // fontSize: 65,
+          // color: '#bbb',
+          // // fontFamily: 'Montserrat, sans-serif',
+          // fontFamily: 'La Belle Aurore, Montserrat, sans-serif',
         },
         domain: {
-          // use: true,
           // fontFamily: 'Montserrat, sans-serif',
         },
         icon: {
           use: true,
-          url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/imagenerator-icon.png?token=AL5JVG4UYIKP3PXBWG7HNPK7IQUMW',
+          url: 'https://raw.githubusercontent.com/furcan/imagenerator/master/test/imagenerator-icon.png?token=AL5JVG5ZQDXYCDU3JGYNT2S7L5ZNI',
         }
       }).GetBase64(function (response) {
         if (response.loading) {
@@ -199,194 +196,6 @@
 
     });
   </script>
-
-
-  <!-- <script>
-    var canvasCreateWithDataAttr = function t(element) {
-      var img = new Image();
-      img.setAttribute('crossorigin', 'anonymous');
-      img.setAttribute('src', element.dataset.src);
-      img.setAttribute('width', 1920);
-      img.onload = function imgOnLoad() {
-        canvasCreate(img, true);
-        img = null;
-      };
-    };
-
-    var multilineTextToCanvasContext = function mlTxtToCnvsCtx(ctx, text, lineHeight, maxLength, x, y, maxWidth) {
-      // check ctx, text and text length
-      if (typeof ctx !== 'object' && typeof text !== 'string') {
-        return false;
-      }
-      // message max length
-      maxLength = typeof maxLength === 'number' && maxLength > 0 ? maxLength : 50;
-      // text substring
-      text = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-
-      // variables
-      var words1 = text.split(' ');
-      var words2 = [];
-      var lines = [];
-      var sliceFrom = 0;
-
-      // check for long words
-      var longWords = [];
-      var longWord = '';
-      for (var i = 0; i < words1.length; i++) {
-        var word = words1[i];
-        var wordWidth = parseInt(ctx.measureText(word).width);
-
-        if (wordWidth > maxWidth) {
-          words1.splice(i, 1);
-          var chars = word.split('');
-          for (var ci = 0; ci < chars.length; ci++) {
-            longWord = longWord + chars[ci];
-            var longWordWidth = parseInt(ctx.measureText(longWord).width);
-            if (longWordWidth > maxWidth) {
-              longWords.push(longWord);
-              longWord = longWord.replace(longWord, '');
-            }
-          }
-          longWords.push(longWord);
-          longWord = longWord.replace(longWord, '');
-        }
-        words2 = longWords.concat(words1);
-      }
-
-      // create lines from words
-      for (var i = 0; i < words2.length; i++) {
-        var chunk = words2.slice(sliceFrom, i).join(' ');
-        var last = i === words2.length - 1;
-        var bigger = parseInt(ctx.measureText(chunk).width) > maxWidth;
-        if (bigger) {
-          lines.push(words2.slice(sliceFrom, i).join(' '));
-          sliceFrom = i;
-        }
-        if (last) {
-          lines.push(words2.slice(sliceFrom, words2.length).join(' '));
-          sliceFrom = i;
-        }
-      }
-
-      // write lines to the canvas
-      for (var i = 0; i < lines.length; i++) {
-        ctx.fillText(lines[i], x, y);
-        y += lineHeight;
-      }
-    };
-
-    var canvasCreate = function cc(image, doubleCheck) {
-      if (typeof image !== 'object') { image = null; }
-      if (typeof doubleCheck === 'undefined') { doubleCheck = true; }
-      var ttl = document.getElementById('title').value || null;
-      var dsc = document.getElementById('desc').value || null;
-      var athr = document.getElementById('author').value || null;
-
-      // loading
-      Notiflix.Block.Standard('.export', 'Please wait...');
-
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var canvasW = canvas.width;
-      var canvasH = canvas.height;
-      var posXCenter = canvasW / 2;
-      var posYCenter = canvasH / 2;
-      context.font = 'normal 20px "Montserrat", sans-serif';
-      context.fillText(' ', 0, 0);
-      context.save();
-
-      // image
-      var img = image || document.getElementById('image');
-      context.drawImage(img, 0, 0, 1920, 1920 * (img.height / img.width));
-
-      // effect
-      var grunge = document.getElementById('grunge');
-      context.filter = 'grayscale(100%)';
-      context.globalAlpha = 0.5;
-      context.drawImage(grunge, 0, 0, 1920, 1920);
-      context.filter = 'none';
-      context.globalAlpha = 1;
-
-      // overlay
-      context.fillStyle = 'rgba(0,0,0,0.3)';
-      context.fillRect(0, 0, canvasW, canvasH);
-
-      // icon
-      var icon = document.getElementById('icon');
-      var iconWH = 200;
-      context.globalAlpha = 0.7;
-      context.drawImage(icon, (posXCenter - (iconWH / 2)), posYCenter - (iconWH * 1.5), iconWH, iconWH);
-      context.globalAlpha = 1;
-
-      // all text
-      context.fillStyle = '#fff';
-      context.textAlign = 'center';
-      var contentMaxWidth = canvasW - (canvasW / 3);
-
-      // title
-      var title = ttl || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-      context.font = '600 75px "Montserrat", sans-serif';
-      var titleLineHeight = 120;
-      var titleMaxLength = 75;
-      var titlePosTop = 360;
-      multilineTextToCanvasContext(context, title, titleLineHeight, titleMaxLength, posXCenter, titlePosTop, contentMaxWidth);
-
-      // message
-      var message = dsc || 'Lorem ipsum dolor sit amet, cons ectetur adip iscing elit, sed do eiusmod tempor incid idunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nos trud exer citation ullamco lab oris nisi ut aliquip ex ea comm odo cons equat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-      context.font = 'normal 60px "Montserrat", sans-serif';
-      var messageLineHeight = 90;
-      var messageMaxLength = 160;
-      var messagePosTop = posYCenter + 100;
-      multilineTextToCanvasContext(context, message, messageLineHeight, messageMaxLength, posXCenter, messagePosTop, contentMaxWidth);
-
-      // author text
-      var author = athr || '- John DOE -';
-      context.font = '500 50px "Montserrat", sans-serif';
-      context.fillStyle = 'rgba(255,255,255,0.7)';
-      var authorLineHeight = 50;
-      var authorMaxLength = 20;
-      var authorPosBottom = canvasH - 450;
-      multilineTextToCanvasContext(context, author, authorLineHeight, authorMaxLength, posXCenter, authorPosBottom, contentMaxWidth);
-
-      // domain text
-      var domain = 'furcan.net';
-      context.font = '400 44px "Montserrat", sans-serif';
-      context.fillStyle = 'rgba(255,255,255,0.6)';
-      var domainLineHeight = 50;
-      var domainMaxLength = 20;
-      var domainPosBottom = canvasH - 100;
-      multilineTextToCanvasContext(context, domain, domainLineHeight, domainMaxLength, posXCenter, domainPosBottom, contentMaxWidth);
-
-      context.restore();
-
-      // to solve the issue of fetching the fonts from url
-      if (doubleCheck) {
-        var tmt = setTimeout(function t() {
-          // create canvas again
-          canvasCreate(img, false);
-
-          // remove loadinh indicator
-          Notiflix.Block.Remove('.export', 360);
-
-          // create img to download
-          canvasDownload(canvas);
-
-          clearTimeout(tmt);
-        }, 1000);
-      }
-    };
-
-    var canvasDownload = function d(canvas) {
-      // canvas to png
-      var fullQuality = canvas.toDataURL('image/png', 1.0);
-      var exportImg = document.getElementById('export');
-      exportImg.setAttribute('src', fullQuality);
-
-      // download link button
-      var link = document.getElementById('DownLink');
-      link.setAttribute('href', fullQuality);
-    };
-  </script> -->
 
 </body>
 

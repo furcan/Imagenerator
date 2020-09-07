@@ -44,7 +44,7 @@
     },
     title: {
       use: true,
-      positionTop: 360,
+      positionTop: 300,
       text: 'Imagenerator',
       maxLength: 120,
       fontSize: 80,
@@ -58,7 +58,7 @@
     icon: {
       use: false,
       url: null,
-      positionTop: 625,
+      positionTop: 480,
       width: 240,
       height: 240,
       align: 'center',
@@ -68,10 +68,10 @@
     },
     description: {
       use: true,
-      positionTop: 1100,
-      text: 'The peoples who want to live comfortably without producing and fatigue; they are doomed to lose their dignity, then liberty, and then independence and destiny.',
-      maxLength: 300,
-      fontSize: 55,
+      positionTop: 900,
+      text: 'There are two Mustafa Kemal: One is me, flesh and bone, a temporary Mustafa Kemal... I cannot express the other Mustafa Kemal with the word "I"; it is us, not me! The other one is an intellectual and warrior community in every corner of the country striving for new ideas, new life, and great ideals. I am representing their dreams. My attempts are to satisfy what they long for. That Mustafa Kemal is you; you are all. The other Mustafa Kemal, who is not temporary, has to live and be successful!',
+      maxLength: 500,
+      fontSize: 50,
       fontWeight: 400,
       textAlign: 'center',
       fontFamily: 'sans-serif',
@@ -81,14 +81,14 @@
     },
     author: {
       use: true,
-      positionTop: 1450,
+      positionTop: 1600,
       text: '- Mustafa Kemal ATATURK -',
       maxLength: 120,
       fontSize: 40,
       fontWeight: 400,
       textAlign: 'center',
       fontFamily: 'sans-serif',
-      color: '#dadada',
+      color: '#c4c4c4',
       shadowColor: 'rgba(0,0,0,0.2)',
       shadowBlur: 120,
     },
@@ -101,7 +101,7 @@
       fontWeight: 400,
       textAlign: 'center',
       fontFamily: 'sans-serif',
-      color: '#dadada',
+      color: '#a9a9a9',
       shadowColor: 'rgba(0,0,0,0.2)',
       shadowBlur: 120,
     },
@@ -519,7 +519,7 @@
           var fontFixTimeout = setTimeout(function tmt() {
             imageneratorInit(options, callback, fontFix);
             clearTimeout(fontFixTimeout);
-          }, 1881);
+          }, 1923);
         }
       };
       return imagenerator();
