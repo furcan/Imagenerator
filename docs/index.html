@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Imagenerator - Test</title>
+  <meta name="description" content="Imagenerator - Test" />
+  <meta name="content-language" content="en" />
+  <meta name="language" content="English" />
+  <meta name="robots" content="index, follow, noodp, noydir" />
+  <meta name="googlebot" content="index, follow, noodp, noydir" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <link rel="shortcut icon" href="favicon-128.png" />
+  <link rel="canonical" href="https://furcan.github.io/Imagenerator" />
+  <meta name="abstract" content="Imagenerator" />
+  <meta name="author" content="Furcan" />
+  <meta name="generator" content="Furcan" />
+  <meta name="designer" content="Furcan" />
+  <meta name="copyright" content="2020 Imagenerator. All Rights Reserved.">
+  <meta name="theme-color" content="#1e1e1e" />
+
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800,900&amp;display=swap&amp;subset=latin-ext" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin-ext" rel="stylesheet">
+
+  <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+  <header>
+    <a class="logo" href="/">
+      <img src="favicon.svg" width="60" height="60" alt="Imagenerator" />
+      <span>Imagenerator</span>
+    </a>
+    <p class="logo-desc">[BETA]</p>
+  </header>
+
+  <section class="wrapper">
+
+    <div class="col">
+      <div class="import">
+        <h3 class="title">Background</h3>
+        <img class="js-background js-active" src="../assets/imagenerator-background-1.png" alt="Background 1" width="100" height="100" />
+        <img class="js-background js-passive" src="../assets/imagenerator-background-2.png" alt="Background 2" width="100" height="100" />
+        <div class="divider"></div>
+        <h3 class="title">Icon</h3>
+        <img class="js-icon js-active" src="../assets/imagenerator-icon-1-gold.png" alt="Icon 1" width="100" height="100" />
+        <img class="js-icon js-passive" src="../assets/imagenerator-icon-2-gold.png" alt="Icon 2" width="100" height="100" />
+      </div>
+      <div class="export js-export">
+        <img id="Export" src="../assets/placeholder.png" alt="Export" width="1920" height="1920" />
+      </div>
+
+      <div class="inputs">
+        <label>Title</label>
+        <div class="input">
+          <input type="text" class="js-inputs-title" value="Imagenerator" />
+          <label class="absolute">Position Top</label>
+          <input type="text" class="absolute js-inputs-title-pos" value="300" />
+        </div>
+
+        <label>Body</label>
+        <div class="input">
+          <textarea class="js-inputs-desc">There are two Mustafa Kemal: One is me, flesh and bone, a temporary Mustafa Kemal... I cannot express the other Mustafa Kemal with the word "I"; it is us, not me! The other one is an intellectual and warrior community in every corner of the country striving for new ideas, new life, and great ideals. I am representing their dreams. My attempts are to satisfy what they long for. That Mustafa Kemal is you; you are all. The other Mustafa Kemal, who is not temporary, has to live and be successful!</textarea>
+          <label class="absolute">Position Top</label>
+          <input type="text" class="absolute js-inputs-desc-pos" value="900" />
+        </div>
+
+        <label>Author</label>
+        <div class="input">
+          <input type="text" class="js-inputs-author" value="- Mustafa Kemal ATATURK -" />
+          <label class="absolute">Position Top</label>
+          <input type="text" class="absolute js-inputs-author-pos" value="1600" />
+        </div>
+
+        <label>Footer</label>
+        <div class="input">
+          <input type="text" class="js-inputs-domain" value="github.com/furcan" />
+          <label class="absolute">Position Bottom</label>
+          <input type="text" class="absolute js-inputs-author-pos" value="100" />
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button type="button" class="btn js-button-imagenerator">Generate</button>
+        <a id="Download" class="btn download js-passive" download="This-Is-An-Image">Download</a>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="wrapper code">
+    <code>
+      <span class="label">All (Default) Options</span>
+      <span class="l1 cmmnt">// All options with descriptions</span>
+      <span class="l1"><span class="fnc1 new">new</span> <span class="fnc2 constr">Imagenerator</span>({</span>
+
+      <span class="l1 l2"><span class="fnc1">direction:</span> <span class="str">'ltr'</span>, <span class="cmmnt">//  "ltr" || "rtl"</span></span>
+      <span class="l1 l2"><span class="fnc1">type:</span> <span class="str">'jpeg'</span>, <span class="cmmnt">// "png" || "jpeg" || "webp"</span></span>
+      <span class="l1 l2"><span class="fnc1">quailty:</span> <span class="int">0.75</span>, <span class="cmmnt">// "0.25" &lt;-&gt; "1"</span></span>
+      <span class="l1 l2"><span class="fnc1">fontFix:</span> <span class="bool">false</span>, <span class="cmmnt">// double-check for external font families (e.g. Google Fonts, etc...)</span></span>
+
+      <span class="l1 l2"><span class="fnc1">background:</span> {</span>
+      <span class="l1 l3"><span class="fnc1">url:</span> <span class="str">'...'</span>, <span class="cmmnt">// background url</span></span>
+      <span class="l1 l3"><span class="fnc1">crossorigin:</span> <span class="str">'anonymous'</span>, <span class="cmmnt">// crossorigin</span></span>
+      <span class="l1 l3"><span class="fnc1">width:</span> <span class="int">1920</span>, <span class="cmmnt">// width</span></span>
+      <span class="l1 l3"><span class="fnc1">height:</span> <span class="int">1920</span>, <span class="cmmnt">// height</span></span>
+      <span class="l1 l3"><span class="fnc1">overlay:</span> { <span class="cmmnt">// background overlay</span></span>
+      <span class="l1 l4"><span class="fnc1">use:</span> <span class="bool">true</span>, <span class="cmmnt">// use background overlay</span></span>
+      <span class="l1 l4"><span class="fnc1">color:</span> <span class="str">'rgba(0,0,0,0.4)'</span>, <span class="cmmnt">// background overlay color</span></span>
+      <span class="l1 l3">},</span>
+      <span class="l1 l2">},</span>
+
+      <span class="l1 l2"><span class="fnc1">title:</span> {</span>
+      <span class="l1 l3"><span class="fnc1">use:</span> <span class="bool">true</span>, <span class="cmmnt">// use title</span></span>
+      <span class="l1 l3"><span class="fnc1">positionTop:</span> <span class="int">300</span>, <span class="cmmnt">// title position top</span></span>
+      <span class="l1 l3"><span class="fnc1">text:</span> <span class="str">'Imagenerator'</span>, <span class="cmmnt">// title text</span></span>
+      <span class="l1 l3"><span class="fnc1">maxLength:</span> <span class="int">120</span>, <span class="cmmnt">// title text max length</span></span>
+      <span class="l1 l3"><span class="fnc1">fontFamily:</span> <span class="str">'sans-serif'</span>, <span class="cmmnt">// title text font family</span></span>
+      <span class="l1 l3"><span class="fnc1">fontSize:</span> <span class="int">80</span>, <span class="cmmnt">// title text font size</span></span>
+      <span class="l1 l3"><span class="fnc1">fontWeight:</span> <span class="int">600</span>, <span class="cmmnt">// title text font weight</span></span>
+      <span class="l1 l3"><span class="fnc1">textAlign:</span> <span class="str">'center'</span>, <span class="cmmnt">// title text alignment => "left" || "center" || "right"</span></span>
+      <span class="l1 l3"><span class="fnc1">color:</span> <span class="str">'#fff'</span>, <span class="cmmnt">// title text color</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowColor:</span> <span class="str">'rgba(0,0,0,0.2)'</span>, <span class="cmmnt">// title text shadow color</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowBlur:</span> <span class="int">120</span>, <span class="cmmnt">// title text shadow blur</span></span>
+      <span class="l1 l2">},</span>
+
+      <span class="l1 l2"><span class="fnc1">icon:</span> {</span>
+      <span class="l1 l3"><span class="fnc1">use:</span> <span class="bool">true</span>, <span class="cmmnt">// use icon</span></span>
+      <span class="l1 l3"><span class="fnc1">url:</span> <span class="str">'...'</span>, <span class="cmmnt">// icon url</span></span>
+      <span class="l1 l3"><span class="fnc1">crossorigin:</span> <span class="str">'anonymous'</span>, <span class="cmmnt">// crossorigin</span></span>
+      <span class="l1 l3"><span class="fnc1">width:</span> <span class="int">240</span>, <span class="cmmnt">// width</span></span>
+      <span class="l1 l3"><span class="fnc1">height:</span> <span class="int">240</span>, <span class="cmmnt">// height</span></span>
+      <span class="l1 l3"><span class="fnc1">positionTop:</span> <span class="int">480</span>, <span class="cmmnt">// icon position top</span></span>
+      <span class="l1 l3"><span class="fnc1">align:</span> <span class="str">'center'</span>, <span class="cmmnt">// icon alignment => "left" || "center" || "right"</span></span>
+      <span class="l1 l3"><span class="fnc1">opacity:</span> <span class="int">1</span>, <span class="cmmnt">// icon opacity</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowColor:</span> <span class="str">'rgba(0,0,0,0.2)'</span>, <span class="cmmnt">// icon shadow color</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowBlur:</span> <span class="int">120</span>, <span class="cmmnt">// icon shadow blur</span></span>
+      <span class="l1 l2">},</span>
+
+      <span class="l1 l2"><span class="fnc1">description:</span> {</span>
+      <span class="l1 l3"><span class="fnc1">use:</span> <span class="bool">true</span>, <span class="cmmnt">// use description</span></span>
+      <span class="l1 l3"><span class="fnc1">positionTop:</span> <span class="int">900</span>, <span class="cmmnt">// description position top</span></span>
+      <span class="l1 l3"><span class="fnc1">text:</span> <span class="str">'There are two Mustafa Kemal: One is me, flesh and bone, a temporary Mustafa Kemal... I cannot express the other Mustafa Kemal with the word "I"; it is us, not me! The other one is an intellectual and warrior community in every corner of the country striving for new ideas, new life, and great ideals. I am representing their dreams. My attempts are to satisfy what they long for. That Mustafa Kemal is you; you are all. The other Mustafa Kemal, who is not temporary, has to live and be successful!'</span>, <span class="cmmnt">// description text</span></span>
+      <span class="l1 l3"><span class="fnc1">maxLength:</span> <span class="int">500</span>, <span class="cmmnt">// description text max length</span></span>
+      <span class="l1 l3"><span class="fnc1">fontFamily:</span> <span class="str">'sans-serif'</span>, <span class="cmmnt">// description text font family</span></span>
+      <span class="l1 l3"><span class="fnc1">fontSize:</span> <span class="int">50</span>, <span class="cmmnt">// description text font size</span></span>
+      <span class="l1 l3"><span class="fnc1">fontWeight:</span> <span class="int">400</span>, <span class="cmmnt">// description text font weight</span></span>
+      <span class="l1 l3"><span class="fnc1">textAlign:</span> <span class="str">'center'</span>, <span class="cmmnt">// description text alignment => "left" || "center" || "right"</span></span>
+      <span class="l1 l3"><span class="fnc1">color:</span> <span class="str">'#f8f8f8'</span>, <span class="cmmnt">// description text color</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowColor:</span> <span class="str">'rgba(0,0,0,0.2)'</span>, <span class="cmmnt">// description text shadow color</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowBlur:</span> <span class="int">120</span>, <span class="cmmnt">// description text shadow blur</span></span>
+      <span class="l1 l2">},</span>
+
+      <span class="l1 l2"><span class="fnc1">author:</span> {</span>
+      <span class="l1 l3"><span class="fnc1">use:</span> <span class="bool">true</span>, <span class="cmmnt">// use author</span></span>
+      <span class="l1 l3"><span class="fnc1">positionTop:</span> <span class="int">1600</span>, <span class="cmmnt">// author position top</span></span>
+      <span class="l1 l3"><span class="fnc1">text:</span> <span class="str">'- Mustafa Kemal ATATURK -'</span>, <span class="cmmnt">// author text</span></span>
+      <span class="l1 l3"><span class="fnc1">maxLength:</span> <span class="int">120</span>, <span class="cmmnt">// author text max length</span></span>
+      <span class="l1 l3"><span class="fnc1">fontFamily:</span> <span class="str">'sans-serif'</span>, <span class="cmmnt">// author text font family</span></span>
+      <span class="l1 l3"><span class="fnc1">fontSize:</span> <span class="int">40</span>, <span class="cmmnt">// author text font size</span></span>
+      <span class="l1 l3"><span class="fnc1">fontWeight:</span> <span class="int">400</span>, <span class="cmmnt">// author text font weight</span></span>
+      <span class="l1 l3"><span class="fnc1">textAlign:</span> <span class="str">'center'</span>, <span class="cmmnt">// author text alignment => "left" || "center" || "right"</span></span>
+      <span class="l1 l3"><span class="fnc1">color:</span> <span class="str">'#c4c4c4'</span>, <span class="cmmnt">// author text color</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowColor:</span> <span class="str">'rgba(0,0,0,0.2)'</span>, <span class="cmmnt">// author text shadow color</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowBlur:</span> <span class="int">120</span>, <span class="cmmnt">// author text shadow blur</span></span>
+      <span class="l1 l2">},</span>
+
+      <span class="l1 l2"><span class="fnc1">footer:</span> {</span>
+      <span class="l1 l3"><span class="fnc1">use:</span> <span class="bool">true</span>, <span class="cmmnt">// use footer</span></span>
+      <span class="l1 l3"><span class="fnc1">positionBottom:</span> <span class="int">100</span>, <span class="cmmnt">// footer position bottom</span></span>
+      <span class="l1 l3"><span class="fnc1">text:</span> <span class="str">'github.com/furcan'</span>, <span class="cmmnt">// footer text</span></span>
+      <span class="l1 l3"><span class="fnc1">maxLength:</span> <span class="int">120</span>, <span class="cmmnt">// footer text max length</span></span>
+      <span class="l1 l3"><span class="fnc1">fontFamily:</span> <span class="str">'sans-serif'</span>, <span class="cmmnt">// footer text font family</span></span>
+      <span class="l1 l3"><span class="fnc1">fontSize:</span> <span class="int">35</span>, <span class="cmmnt">// footer text font size</span></span>
+      <span class="l1 l3"><span class="fnc1">fontWeight:</span> <span class="int">400</span>, <span class="cmmnt">// footer text font weight</span></span>
+      <span class="l1 l3"><span class="fnc1">textAlign:</span> <span class="str">'center'</span>, <span class="cmmnt">// footer text alignment => "left" || "center" || "right"</span></span>
+      <span class="l1 l3"><span class="fnc1">color:</span> <span class="str">'#a9a9a9'</span>, <span class="cmmnt">// footer text color</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowColor:</span> <span class="str">'rgba(0,0,0,0.2)'</span>, <span class="cmmnt">// footer text shadow color</span></span>
+      <span class="l1 l3"><span class="fnc1">shadowBlur:</span> <span class="int">120</span>, <span class="cmmnt">// footer text shadow blur</span></span>
+      <span class="l1 l2">},</span>
+
+      <span class="l1">});</span>
+    </code>
+  </section>
+
+  <section class="wrapper code">
+    <code>
+      <span class="label">GetBase64();</span>
+      <span class="l1 cmmnt">// Imagenerator.GetBase64();</span>
+      <span class="l1"><span class="fnc1 new">new</span> <span class="fnc2 constr">Imagenerator</span>({</span>
+
+      <span class="l1 l2"><span class="cmmnt">// initialize...</span></span>
+
+      <span class="l1">}).<span class="fnc2">GetBase64</span>(<span class="fnc3">function</span> (<span class="fnc1">response</span>) {</span>
+
+      <span class="l1 l2"><span class="cmmnt">// The "response" argument is an object and has two properties.</span></span>
+      <span class="l1 l2"><span class="cmmnt">// The "response.loading" can be used while the image is being generated.</span></span>
+      <span class="l1 l2"><span class="cmmnt">// The "response.base64" is the generated image as Base64.</span></span>
+      <span class="l1 l2 break"></span>
+
+      <span class="l1 l2"><span class="ifelse">if</span> (<span class="fnc1">response</span>.<span class="fnc1">loading</span>) {</span>
+      <span class="l1 l3"><span class="cmmnt">// Can be shown a loading spinner, etc...</span></span>
+
+      <span class="l1 l2">} <span class="ifelse">else</span> {</span>
+      <span class="l1 l3"><span class="cmmnt">// The Base64 data can be used for an image as src to display it, and/or an anchor attribute as href to download...</span></span>
+
+      <span class="l1 l3"><span class="var">var</span> <span class="fnc1">base64</span> = <span class="fnc1">response</span>.<span class="fnc1">base64</span>;</span>
+      <span class="l1 l3"><span class="fnc1">exampleImgElement</span>.<span class="fnc2">setAttribute</span>(<span class="str">'src'</span>, <span class="fnc1">base64</span>);</span>
+
+      <span class="l1 l2"><span class="fnc2">}</span></span>
+
+      <span class="l1">});</span>
+    </code>
+  </section>
+
+  <footer>
+    <p class="copyright">© 2020 Imagenerator. All rights reserved.</p>
+    <a class="github" target="_blank" rel="noopener" href="https://github.com/furcan"><i class="fab fa-github" aria-hidden="true"></i>/furcan</a>
+  </footer>
+
+  <script src="https://kit.fontawesome.com/833245c2e4.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/notiflix@2.4.0/dist/notiflix-aio-2.4.0.min.js"></script>
+  <script src="../src/imagenerator.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
