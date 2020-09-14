@@ -7,8 +7,8 @@
   <meta name="description" content="Imagenerator - Test" />
   <meta name="content-language" content="en" />
   <meta name="language" content="English" />
-  <meta name="robots" content="index, follow, noodp, noydir" />
-  <meta name="googlebot" content="index, follow, noodp, noydir" />
+  <meta name="robots" content="noindex, nofollow, noodp, noydir" />
+  <meta name="googlebot" content="noindex, nofollow, noodp, noydir" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link rel="shortcut icon" href="favicon-128.png" />
   <link rel="canonical" href="https://furcan.github.io/Imagenerator" />
@@ -34,61 +34,65 @@
       <img src="favicon.svg" width="60" height="60" alt="Imagenerator" />
       <span>Imagenerator</span>
     </a>
-    <p class="logo-desc">[BETA]</p>
+    <p class="logo-desc">[0.0.1-beta.01]</p>
   </header>
 
   <section class="wrapper">
 
     <div class="col">
+
       <div class="import">
         <h3 class="title">Background</h3>
-        <img class="js-background js-active" src="../assets/imagenerator-background-1.png" alt="Background 1" width="100" height="100" />
-        <img class="js-background js-passive" src="../assets/imagenerator-background-2.png" alt="Background 2" width="100" height="100" />
+        <img title="Choose this one." class="js-background js-active" src="https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-background-1.png?token=AL5JVGZTWPBPOSL4G6N2X5K7NCAQI" alt="Background 1" width="100" height="100" />
+        <img title="Choose this one." class="js-background js-passive" src="https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-background-2.png?token=AL5JVG4KZYIEBZVPY4IUH5S7NCATC" alt="Background 2" width="100" height="100" />
         <div class="divider"></div>
         <h3 class="title">Icon</h3>
-        <img class="js-icon js-active" src="../assets/imagenerator-icon-1-gold.png" alt="Icon 1" width="100" height="100" />
-        <img class="js-icon js-passive" src="../assets/imagenerator-icon-2-gold.png" alt="Icon 2" width="100" height="100" />
-      </div>
-      <div class="export js-export">
-        <img id="Export" src="../assets/placeholder.png" alt="Export" width="1920" height="1920" />
+        <img title="Choose this one." class="js-icon js-active" src="https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-icon-1-gold.png?token=AL5JVG6OQUWSWTC3MERKBHK7NCAUU" alt="Icon 1" width="100" height="100" />
+        <img title="Choose this one." class="js-icon js-passive" src="https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-icon-2-gold.png?token=AL5JVG3SE4Q4Q5BPBKHWAZS7NCAU4" alt="Icon 2" width="100" height="100" />
       </div>
 
-      <div class="inputs">
-        <label>Title</label>
-        <div class="input">
-          <input type="text" class="js-inputs-title" value="Imagenerator" />
-          <label class="absolute">Position Top</label>
-          <input type="text" class="absolute js-inputs-title-pos" value="300" />
+      <div class="export-wrapper">
+
+        <div class="inputs">
+          <label>Title</label>
+          <div class="input">
+            <input type="text" class="js-inputs-title" value="Imagenerator" />
+            <label class="absolute">Position Top</label>
+            <input type="text" class="absolute js-inputs-title-pos" value="300" />
+          </div>
+
+          <label>Body</label>
+          <div class="input">
+            <textarea class="js-inputs-desc">There are two Mustafa Kemal: One is me, flesh and bone, a temporary Mustafa Kemal... I cannot express the other Mustafa Kemal with the word "I"; it is us, not me! The other one is an intellectual and warrior community in every corner of the country striving for new ideas, new life, and great ideals. I am representing their dreams. My attempts are to satisfy what they long for. That Mustafa Kemal is you; you are all. The other Mustafa Kemal, who is not temporary, has to live and be successful!</textarea>
+            <label class="absolute">Position Top</label>
+            <input type="text" class="absolute js-inputs-desc-pos" value="900" />
+          </div>
+
+          <label>Author</label>
+          <div class="input">
+            <input type="text" class="js-inputs-author" value="- Mustafa Kemal ATATURK -" />
+            <label class="absolute">Position Top</label>
+            <input type="text" class="absolute js-inputs-author-pos" value="1600" />
+          </div>
+
+          <label>Footer</label>
+          <div class="input">
+            <input type="text" class="js-inputs-footer" value="github.com/furcan" />
+            <label class="absolute">Position Bottom</label>
+            <input type="text" class="absolute js-inputs-footer-pos" value="100" />
+          </div>
         </div>
 
-        <label>Body</label>
-        <div class="input">
-          <textarea class="js-inputs-desc">There are two Mustafa Kemal: One is me, flesh and bone, a temporary Mustafa Kemal... I cannot express the other Mustafa Kemal with the word "I"; it is us, not me! The other one is an intellectual and warrior community in every corner of the country striving for new ideas, new life, and great ideals. I am representing their dreams. My attempts are to satisfy what they long for. That Mustafa Kemal is you; you are all. The other Mustafa Kemal, who is not temporary, has to live and be successful!</textarea>
-          <label class="absolute">Position Top</label>
-          <input type="text" class="absolute js-inputs-desc-pos" value="900" />
+        <div class="buttons">
+          <button type="button" class="btn js-button-imagenerator">Generate</button>
+          <a id="Download" class="btn download js-passive" download="Imagenerator">Download</a>
         </div>
 
-        <label>Author</label>
-        <div class="input">
-          <input type="text" class="js-inputs-author" value="- Mustafa Kemal ATATURK -" />
-          <label class="absolute">Position Top</label>
-          <input type="text" class="absolute js-inputs-author-pos" value="1600" />
+        <div class="export js-export">
+          <img id="Export" src="../assets/placeholder.png" alt="Export" width="1920" height="1920" />
         </div>
-
-        <label>Footer</label>
-        <div class="input">
-          <input type="text" class="js-inputs-domain" value="github.com/furcan" />
-          <label class="absolute">Position Bottom</label>
-          <input type="text" class="absolute js-inputs-author-pos" value="100" />
-        </div>
-      </div>
-
-      <div class="buttons">
-        <button type="button" class="btn js-button-imagenerator">Generate</button>
-        <a id="Download" class="btn download js-passive" download="This-Is-An-Image">Download</a>
       </div>
     </div>
-
   </section>
 
   <section class="wrapper code">

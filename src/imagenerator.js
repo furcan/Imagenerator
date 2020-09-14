@@ -34,7 +34,7 @@
     quailty: 0.75, // "0.25" - "1"
     fontFix: false,
     background: {
-      url: 'TODO:',
+      url: 'https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-background-1.png?token=AL5JVGZTWPBPOSL4G6N2X5K7NCAQI',
       crossorigin: 'anonymous',
       width: 1920,
       height: 1920,
@@ -58,7 +58,7 @@
     },
     icon: {
       use: true,
-      url: 'TODO:',
+      url: 'https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-icon-1-gold.png?token=AL5JVG6OQUWSWTC3MERKBHK7NCAUU',
       crossorigin: 'anonymous',
       width: 240,
       height: 240,

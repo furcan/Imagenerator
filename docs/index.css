@@ -42,7 +42,7 @@ header {
   justify-content: center;
   padding: 0 20px;
   border-radius: 0 0 50px 50px;
-  box-shadow: inset 0 -10px 20px -10px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 -10px 20px -10px rgba(0, 0, 0, 0.075);
 }
 
 .logo {
@@ -66,6 +66,23 @@ header {
   color: rgba(0, 0, 0, 0.5);
 }
 
+footer {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 0 20px;
+  box-shadow: inset 0 10px 20px -10px rgba(0, 0, 0, 0.075);
+  border-radius: 25px 25px 0 0;
+}
+
+footer p {
+  margin: 10px 0;
+}
+
 section.wrapper {
   width: 100%;
   display: flex;
@@ -79,13 +96,15 @@ section.wrapper {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  padding: 0 20px;
+  align-items: flex-start;
+  padding: 20px;
 }
 
 @media only screen and (min-width: 768px) {
   .col {
     max-width: 768px;
+    border-radius: 8px;
+    box-shadow: 0 0 40px -20px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -130,6 +149,7 @@ section.wrapper {
 
 .import img.js-passive {
   opacity: 0.35;
+  transform: scale(0.8);
 }
 
 .import img:hover {
@@ -138,6 +158,10 @@ section.wrapper {
 
 .import img.js-icon {
   transform: scale(0.75);
+}
+
+.import img.js-icon.js-passive {
+  transform: scale(0.65);
 }
 
 .import .divider {
@@ -159,27 +183,17 @@ section.wrapper {
   }
 }
 
-.export {
+.export-wrapper {
   width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 2px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 @media only screen and (min-width: 768px) {
-  .export {
+  .export-wrapper {
     width: calc(100% - 140px);
   }
-}
-
-.export img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 2px;
 }
 
 .inputs,
@@ -189,14 +203,7 @@ section.wrapper {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin: 20px 0 0;
-}
-
-@media only screen and (min-width: 768px) {
-  .inputs,
-  .buttons {
-    padding-left: 140px;
-  }
+  margin: 0 0 20px;
 }
 
 .inputs {
@@ -214,7 +221,7 @@ section.wrapper {
   display: flex;
   font-size: 9px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.25);
   margin: 0 0 4px;
 }
 
@@ -231,11 +238,12 @@ section.wrapper {
   width: 100%;
   max-width: 100%;
   min-width: 100%;
-  height: 42px;
+  height: 44px;
   font-size: 12px;
   margin: 0;
   padding: 0 16px;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: none;
+  box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   padding-right: 76px;
 }
@@ -255,13 +263,11 @@ section.wrapper {
   position: absolute;
   right: 0;
   top: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
   width: 60px;
   min-width: initial;
   text-align: center;
   padding: 0 12px;
+  box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.35);
 }
 
 .buttons .btn {
@@ -292,6 +298,11 @@ section.wrapper {
 
 .buttons .btn:hover {
   background: #1e1e1e;
+  transform: scale(1.05);
+}
+
+.buttons .btn:active {
+  transform: scale(0.95);
 }
 
 .buttons .btn.download {
@@ -304,21 +315,23 @@ section.wrapper {
   opacity: 0.5;
 }
 
-footer {
+.export {
   width: 100%;
-  height: 60px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  padding: 0 20px;
-  box-shadow: inset 0 10px 20px -10px rgba(0, 0, 0, 0.1);
-  border-radius: 25px 25px 0 0;
+  justify-content: center;
+  margin: 20px 0 0;
+  box-shadow: 0 0 40px -20px rgba(0, 0, 0, 0.15);
 }
 
-footer p {
-  margin: 10px 0;
+.export img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 2px;
 }
 
 .code code {
