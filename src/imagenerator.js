@@ -30,17 +30,14 @@
   var imageneratorOptions = {
     direction: 'ltr', // "ltr" || "rtl"
     type: 'jpeg', // "png" || "jpeg" || "webp"
-    quailty: 0.75, // "0.25" - "1"
+    quailty: 1, // "0.25" - "1"
     fontFix: false,
     background: {
       url: 'https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-background-1.png?token=AL5JVGZTWPBPOSL4G6N2X5K7NCAQI',
       crossorigin: 'anonymous',
       width: 1920,
       height: 1920,
-      overlay: {
-        use: true,
-        color: 'rgba(0,0,0,0.4)',
-      },
+      overlayColor: 'rgba(0,0,0,0.4)',
     },
     title: {
       use: true,
@@ -348,10 +345,9 @@
     // draw image: end
 
     // draw overlay: begin
-    var hasOverlay = (((options || {}).background || {}).overlay || {}).use === true;
-    if (hasOverlay) {
-      var overlayColor = (((options || {}).background || {}).overlay || {}).color;
-      overlayColor = imageneratorCheckString(overlayColor) ? overlayColor : imageneratorOptions.background.overlay.color;
+    var overlayColor = ((options || {}).background || {}).overlayColor;
+    overlayColor = imageneratorCheckString(overlayColor) ? overlayColor : false;
+    if (overlayColor) {
       context.fillStyle = overlayColor;
       context.fillRect(0, 0, width, height);
       context.restore();
