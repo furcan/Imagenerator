@@ -28,6 +28,9 @@
     "eslint": "^7.6.0"
   },
   "scripts": {
-    "eslint": "eslint src/imagenerator.js"
+    "src-eslint": "eslint src/imagenerator.js",
+    "dev-eslint": "eslint helpers/dev-constants.js && eslint helpers/dev-minifier.js",
+    "dev-minifier": "npm run src-eslint && npm run dev-eslint && node helpers/dev-minifier.js",
+    "build": "npm run dev-minifier"
   }
 }

@@ -82,7 +82,7 @@ window.document.querySelector('.js-button-imagenerator').addEventListener('click
     image.GetBase64(function (response) {
       if (response.loading) {
         Notiflix.Block.Dots('.js-export', 'Please wait while the image is being generated...', {
-          backgroundColor: 'rgba(255,255,255,0.92)',
+          backgroundColor: 'rgba(255,255,255,0.94)',
           svgSize: '64px',
           messageMaxLength: 300,
         });

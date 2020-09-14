@@ -27,7 +27,6 @@
   // SSR check: end
 
   // Variables & Options: begin
-  var imageneratorDocsUrl = '\n\nVisit the GitHub page to learn more: https://furcan.github.io/Imagenerator';
   var imageneratorOptions = {
     direction: 'ltr', // "ltr" || "rtl"
     type: 'jpeg', // "png" || "jpeg" || "webp"
@@ -144,13 +143,13 @@
 
   // Console Error: begin
   var consoleError = function error(title, message) {
-    return console.error('%c ' + title + ' ', 'padding:2px;border-radius:20px;color:#fff;background:#ff5549', '\n' + message + imageneratorDocsUrl);
+    return console.error('%c ' + title + ' ', 'padding:2px;border-radius:20px;color:#fff;background:#ff5549', '\n' + message);
   };
   // Console Error: end
 
   // Console Log: begin
   var consoleLog = function log(title, message) {
-    return console.log('%c ' + title + ' ', 'padding:2px;border-radius:20px;color:#fff;background:#26c0d3', '\n' + message + imageneratorDocsUrl);
+    return console.log('%c ' + title + ' ', 'padding:2px;border-radius:20px;color:#fff;background:#26c0d3', '\n' + message);
   };
   // Console Log: end
 
@@ -181,15 +180,15 @@
     // check for long words
     var longWords = [];
     var longWord = '';
-    for (var i = 0; i < words1.length; i++) {
-      var word = words1[i];
+    for (var wi = 0; wi < words1.length; wi++) {
+      var word = words1[wi];
       var wordWidth = parseInt(ctx.measureText(word).width);
 
       if (wordWidth > maxWidth) {
-        words1.splice(i, 1);
+        words1.splice(wi, 1);
         var chars = word.split('');
-        for (var ci = 0; ci < chars.length; ci++) {
-          longWord = longWord + chars[ci];
+        for (var chi = 0; chi < chars.length; chi++) {
+          longWord = longWord + chars[chi];
           var longWordWidth = parseInt(ctx.measureText(longWord).width);
           if (longWordWidth > maxWidth) {
             longWords.push(longWord);
@@ -203,23 +202,23 @@
     }
 
     // create lines from words
-    for (var i = 0; i < words2.length; i++) {
-      var chunk = words2.slice(sliceFrom, i).join(' ');
-      var last = i === words2.length - 1;
+    for (var cli = 0; cli < words2.length; cli++) {
+      var chunk = words2.slice(sliceFrom, cli).join(' ');
+      var last = cli === words2.length - 1;
       var bigger = parseInt(ctx.measureText(chunk).width) > maxWidth;
       if (bigger) {
-        lines.push(words2.slice(sliceFrom, i).join(' '));
-        sliceFrom = i;
+        lines.push(words2.slice(sliceFrom, cli).join(' '));
+        sliceFrom = cli;
       }
       if (last) {
         lines.push(words2.slice(sliceFrom, words2.length).join(' '));
-        sliceFrom = i;
+        sliceFrom = cli;
       }
     }
 
     // write lines to the canvas
-    for (var i = 0; i < lines.length; i++) {
-      ctx.fillText(lines[i], x, y);
+    for (var wli = 0; wli < lines.length; wli++) {
+      ctx.fillText(lines[wli], x, y);
       y += lineHeight;
     }
   };
@@ -518,7 +517,7 @@
     }
     // else: "callback" function not defined
     else {
-      consoleError('Imagenerator Error: ', '"GetBase64" must have an argument and the argument has to be a function.')
+      consoleError('Imagenerator Error: ', '"GetBase64" must have an argument and the argument has to be a function.');
       return false;
     }
   };
@@ -528,6 +527,7 @@
   var Imagenerator = function (options) {
     this.options = options;
   };
+
   Imagenerator.prototype = {
     GetBase64: function getBase64(callback) {
       var options = this.options;
@@ -545,6 +545,7 @@
       return imagenerator();
     },
   };
+
   return Imagenerator;
   // Imagenerator: end
 });
