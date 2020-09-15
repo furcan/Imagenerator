@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Imagenerator - Test</title>
+  <title>Imagenerator - BETA</title>
   <meta name="description" content="Imagenerator - Test" />
   <meta name="content-language" content="en" />
   <meta name="language" content="English" />
@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin-ext" rel="stylesheet">
 
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="index.css?v=1">
 
 </head>
 
@@ -38,10 +38,8 @@
   </header>
 
   <section class="wrapper">
-
     <div class="col">
-
-      <div class="import">
+      <div class="backgrounds">
         <h3 class="title">Background</h3>
         <img title="Choose this one." class="js-background js-active" src="https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-background-1.png" alt="Background 1" width="100" height="100" />
         <img title="Choose this one." class="js-background js-passive" src="https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-background-2.png" alt="Background 2" width="100" height="100" />
@@ -50,9 +48,7 @@
         <img title="Choose this one." class="js-icon js-active" src="https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-icon-1-gold.png" alt="Icon 1" width="100" height="100" />
         <img title="Choose this one." class="js-icon js-passive" src="https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-icon-2-gold.png" alt="Icon 2" width="100" height="100" />
       </div>
-
-      <div class="export-wrapper">
-
+      <div class="import-export">
         <div class="inputs">
           <label>Title</label>
           <div class="input">
@@ -61,7 +57,7 @@
             <input type="text" class="absolute js-inputs-title-pos" value="300" />
           </div>
 
-          <label>Body</label>
+          <label>Description</label>
           <div class="input">
             <textarea class="js-inputs-desc">There are two Mustafa Kemal: One is me, flesh and bone, a temporary Mustafa Kemal... I cannot express the other Mustafa Kemal with the word "I"; it is us, not me! The other one is an intellectual and warrior community in every corner of the country striving for new ideas, new life, and great ideals. I am representing their dreams. My attempts are to satisfy what they long for. That Mustafa Kemal is you; you are all. The other Mustafa Kemal, who is not temporary, has to live and be successful!</textarea>
             <label class="absolute">Position Top</label>
@@ -218,14 +214,15 @@
   </section>
 
   <footer>
-    <p class="copyright">© 2020 Imagenerator. All rights reserved.</p>
+    <p class="copyright">© 2020 Imagenerator - BETA. All rights reserved.</p>
     <a class="github" target="_blank" rel="noopener" href="https://github.com/furcan"><i class="fab fa-github" aria-hidden="true"></i>/furcan</a>
   </footer>
 
   <script src="https://kit.fontawesome.com/833245c2e4.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/notiflix@2.4.0/dist/notiflix-aio-2.4.0.min.js"></script>
-  <script src="imagenerator-0.0.1-beta.01.min.js"></script>
-  <script src="index.js"></script>
+  <!-- <script src="../src/imagenerator.js"></script> -->
+  <script src="imagenerator-0.0.1-beta.01.min.js?v=1"></script>
+  <script src="index.js?v=1"></script>
 </body>
 
 </html>

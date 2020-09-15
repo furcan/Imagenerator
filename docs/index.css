@@ -108,7 +108,7 @@ section.wrapper {
   }
 }
 
-.import {
+.backgrounds {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -120,7 +120,7 @@ section.wrapper {
 }
 
 @media only screen and (min-width: 768px) {
-  .import {
+  .backgrounds {
     width: 140px;
     flex-direction: column;
     align-items: flex-start;
@@ -131,7 +131,7 @@ section.wrapper {
   }
 }
 
-.import img {
+.backgrounds img {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   width: 100px;
@@ -142,35 +142,35 @@ section.wrapper {
 }
 
 @media only screen and (min-width: 768px) {
-  .import img {
+  .backgrounds img {
     margin: 0 0 20px;
   }
 }
 
-.import img.js-passive {
+.backgrounds img.js-passive {
   opacity: 0.35;
   transform: scale(0.8);
 }
 
-.import img:hover {
+.backgrounds img:hover {
   opacity: 1;
 }
 
-.import img.js-icon {
+.backgrounds img.js-icon {
   transform: scale(0.75);
 }
 
-.import img.js-icon.js-passive {
+.backgrounds img.js-icon.js-passive {
   transform: scale(0.65);
 }
 
-.import .divider {
+.backgrounds .divider {
   min-height: 36px;
   display: flex;
   width: 100%;
 }
 
-.import .title {
+.backgrounds .title {
   width: 100%;
   font-size: 13px;
   font-weight: 600;
@@ -178,12 +178,12 @@ section.wrapper {
 }
 
 @media only screen and (min-width: 768px) {
-  .import .title {
+  .backgrounds .title {
     width: 100px;
   }
 }
 
-.export-wrapper {
+.import-export {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -191,7 +191,7 @@ section.wrapper {
 }
 
 @media only screen and (min-width: 768px) {
-  .export-wrapper {
+  .import-export {
     width: calc(100% - 140px);
   }
 }

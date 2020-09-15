@@ -33,7 +33,7 @@
     quailty: 1, // "0.25" - "1"
     fontFix: false,
     background: {
-      url: 'https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-background-1.png?token=AL5JVGZTWPBPOSL4G6N2X5K7NCAQI',
+      url: 'https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-background-1.png',
       crossorigin: 'anonymous',
       width: 1920,
       height: 1920,
@@ -54,7 +54,7 @@
     },
     icon: {
       use: true,
-      url: 'https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-icon-1-gold.png?token=AL5JVG6OQUWSWTC3MERKBHK7NCAUU',
+      url: 'https://raw.githubusercontent.com/furcan/Imagenerator/master/assets/imagenerator-icon-1-gold.png',
       crossorigin: 'anonymous',
       width: 240,
       height: 240,
